@@ -7,7 +7,12 @@ const Restaurant = () => {
   const router = useRouter();
 
   return (
-    <h1>Dynamic Restaurant Page { router.query.restaurant}</h1>
+    <>
+      <Head>
+        <title>Restaurant {router.query.restaurant}</title>
+      </Head>
+      <h1>Dynamic Restaurant Page { router.query.restaurant}</h1>
+    </>
   )
 }
 export default Restaurant;
