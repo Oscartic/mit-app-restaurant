@@ -1,10 +1,13 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import SearchForm from '../components/SearchForm'
+import TopMenu from '../components/Menu'
 
 const Home = () => {
   return (
-    <h1>Hello Word</h1>
+    <>
+      <SearchForm />
+    </>
   )
 }
 export default Home;
