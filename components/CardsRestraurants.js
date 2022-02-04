@@ -3,7 +3,7 @@ import CardRestaurant from './CardRestaurant';
 const CardsRestaurants = () => {
     return (
         <> 
-            <Row style={{margin: '2rem 0'}}>
+            <Row style={{margin: '1rem 0'}}>
                 <Col span={20} offset={2}>
                     <Row gutter={[16, 24]}>
                         <CardRestaurant />
