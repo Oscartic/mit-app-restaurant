@@ -1,19 +1,23 @@
-import { Input, Space } from 'antd';
+import { Input, Row, Col } from 'antd';
 
 const SearchForm = () => {
 
-const onSearch = value => console.log(value);
+    const onSearch = value => console.log(value);
+    
     const { Search } = Input;
     return(
-        <Space>
-            <Search
-                placeholder="input search text"
-                allowClear
-                enterButton="Search"
-                size="large"
-                onSearch={onSearch}
-            />
-        </Space>
+        <Row>
+            <Col span={20} offset={2}>
+                <Search
+                    placeholder="input search text"
+                    allowClear
+                    enterButton="Search"
+                    size="large"
+                    onSearch={onSearch}
+                />
+            </Col>
+        </Row>
+      
     )
 };
 

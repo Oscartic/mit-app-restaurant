@@ -5,9 +5,9 @@ import Link from 'next/Link'
 const Restaurants = () => {
 
   const restaurants = [
-    {name: 'WoodsHill'},
-    {name: 'Fiorellas'},
-    {name: 'Karma'},
+    {id: 1, name: 'WoodsHill'},
+    {id: 2, name: 'Fiorellas'},
+    {id: 3, name: 'Karma'},
   ]
 
   return (
@@ -19,7 +19,7 @@ const Restaurants = () => {
       {
         restaurants.map(item => {
           return (
-            <div>
+            <div key={item.id}>
               <Link as={`/restaurants/${item.name}`} href="restaurants/[restaurant]">
                 {item.name}
               </Link>
