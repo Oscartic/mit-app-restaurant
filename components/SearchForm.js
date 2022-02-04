@@ -6,7 +6,7 @@ const SearchForm = () => {
     
     const { Search } = Input;
     return(
-        <Row>
+        <Row style={{ margin: '2crem 0'}}>
             <Col span={20} offset={2}>
                 <Search
                     placeholder="input search text"
