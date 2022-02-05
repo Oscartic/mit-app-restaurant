@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Drawer, Button } from "antd";
+import { ShoppingCartOutlined } from '@ant-design/icons';
 
+import styles from '../styles/Cart.module.css'
 const Cart = ({quantity, total}) => {
     const [visible, setVisible] = useState(false);
 
@@ -13,10 +15,19 @@ const Cart = ({quantity, total}) => {
     };
 
     return (
-        <>
-        <span onClick={showDrawer}>
-            Cart {quantity} {total}
-        </span>
+        <div className={styles.cart}>
+        <div className={styles.btn} onClick={showDrawer}>
+            <span className={styles.title}>
+                <ShoppingCartOutlined />
+                Cart 
+            </span>
+            <span className={styles.quantity}>
+                {quantity} 
+            </span>
+            <span className={styles.total}>
+                $ {Number(total).toFixed(2)}
+            </span>
+        </div>
         <Drawer
             title="Cart"
             placement="right"
@@ -24,11 +35,9 @@ const Cart = ({quantity, total}) => {
             onClose={onClose}
             visible={visible}
         >
-            <p>Some contents...</p>
-            <p>Some contents...</p>
-            <p>Some contents...</p>
+            <p>Aqui pagas: </p>
         </Drawer>
-        </>
+        </div>
     );
 };
 
