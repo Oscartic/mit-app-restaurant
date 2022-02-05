@@ -1,7 +1,8 @@
-import { Card, Avatar, Col } from 'antd';
+import Link from 'next/Link'
+import { Card, Avatar, Col, Rate } from 'antd';
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 
-const CardRestaurant = () => {
+const CardRestaurant = ({name, description}) => {
     const { Meta } = Card;
     return (
         <Col className="gutter-row" span={6}>
@@ -12,17 +13,16 @@ const CardRestaurant = () => {
                         src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
                     />
                 }
-                actions={[
-                    <SettingOutlined key="setting" />,
-                    <EditOutlined key="edit" />,
-                    <EllipsisOutlined key="ellipsis" />,
-                ]}
                 >
                 <Meta
-                    avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                    title="Card title"
-                    description="This is the description"
+                    title={
+                        <Link as={`/restaurants/${name}`} href="restaurants/[restaurant]">
+                            {name}
+                        </Link>
+                    }
+                    description={description}
                 />
+                <Rate allowHalf defaultValue={2.5} />
             </Card>
         </Col>
     );
