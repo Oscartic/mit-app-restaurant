@@ -1,4 +1,4 @@
-import { Table, Tag, Space } from 'antd';
+import { Table, Tag, Space, Empty, Divider } from 'antd';
 
 const Orders = () => {
 
@@ -77,8 +77,11 @@ const Orders = () => {
 
     return (
         <>
-            <h2>Historial de pedidos</h2>
-            <Table columns={columns} dataSource={data} />
+            <h2>Order history</h2>
+            <Divider />
+            {/* <Table columns={columns} dataSource={data} /> */}
+            <Empty description="You do not record orders" />
+            
         </>
     );
 
