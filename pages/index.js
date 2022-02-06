@@ -7,12 +7,7 @@ const Home = () => {
       <Head>
         <title>MITRestaurants</title>
       </Head>
-      <Row style={{margin: '1rem 0'}}>
-          <Col span={20} offset={2}>
-          <h1>Hello from Restaurants</h1>
-
-          </Col>
-      </Row>
+        <h1>Hello from Restaurants</h1>
     </>
   )
 }
