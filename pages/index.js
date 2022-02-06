@@ -1,14 +1,18 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import SearchForm from '../components/SearchForm'
-import TopMenu from '../components/Menu'
-import CardsRestaurants from '../components/CardsRestraurants'
+import { Row, Col } from 'antd';
 
 const Home = () => {
   return (
     <>
-      <SearchForm />
-      <CardsRestaurants />
+      <Head>
+        <title>MITRestaurants</title>
+      </Head>
+      <Row style={{margin: '1rem 0'}}>
+          <Col span={20} offset={2}>
+          <h1>Hello from Restaurants</h1>
+
+          </Col>
+      </Row>
     </>
   )
 }

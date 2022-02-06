@@ -1,6 +1,8 @@
 import Head from 'next/head'
 import styles from '../../styles/Home.module.css'
 import Link from 'next/Link'
+import CardsRestaurants from '../../components/CardsRestraurants'
+import SearchForm from '../../components/SearchForm'
 
 const Restaurants = () => {
 
@@ -15,18 +17,8 @@ const Restaurants = () => {
       <Head>
         <title>Restaurants</title>
       </Head>
-      <h1>Hello from Restaurants</h1>
-      {
-        restaurants.map(item => {
-          return (
-            <div key={item.id}>
-              <Link as={`/restaurants/${item.name}`} href="restaurants/[restaurant]">
-                {item.name}
-              </Link>
-            </div>
-          )
-        })
-      }
+      <SearchForm />
+      <CardsRestaurants />
     </>
   )
 }
