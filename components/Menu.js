@@ -7,9 +7,10 @@ import Cart from './Cart';
 
 const TopMenu = () => {
   
-  const isActive = () => {
+  const isActive = (path) => {
     const router = useRouter();
-    return router.pathname == "/restaurants" ? styles.active : "";
+    console.log(router.pathname, path);
+    return router.pathname == path ? styles.active : "";
   }
 
   return (
@@ -18,15 +19,15 @@ const TopMenu = () => {
         <h1><span>MIT</span>RESTAURANT APP</h1>
       </div>
       <Row style={{ margin: '2rem 0'}}>
-        <Col span={16} offset={2}>
+        <Col span={16} offset={2} className={styles.main_menu}>
         <Link as={`/restaurants/`} href="restaurants/">
-            <a className={styles.main_menu} className={isActive()}>
+            <a className={isActive('/restaurants')} >
               <CrownOutlined />
               Restaurants
             </a>
           </Link>
-          <Link as={`/restaurants/`} href="restaurants/">
-            <a className={styles.main_menu}>
+          <Link as={`/account/`} href="account/">
+            <a className={isActive('/account')}>
               <SettingOutlined />
               Account
             </a>
