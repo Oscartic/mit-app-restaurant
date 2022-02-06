@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Drawer, Button } from "antd";
+import { Drawer, Divider, Empty } from "antd";
 import { ShoppingCartOutlined } from '@ant-design/icons';
 
 import styles from '../styles/Cart.module.css'
@@ -35,7 +35,7 @@ const Cart = ({quantity, total}) => {
             onClose={onClose}
             visible={visible}
         >
-            <p>Aqui pagas: </p>
+            <Empty description="You still do not have selected dishes"/>
         </Drawer>
         </div>
     );
