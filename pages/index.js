@@ -1,10 +1,19 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import { Row, Col } from 'antd';
 
 const Home = () => {
   return (
-    <h1>Hello Word</h1>
+    <>
+      <Head>
+        <title>MITRestaurants</title>
+      </Head>
+      <Row style={{margin: '1rem 0'}}>
+          <Col span={20} offset={2}>
+          <h1>Hello from Restaurants</h1>
+
+          </Col>
+      </Row>
+    </>
   )
 }
 export default Home;

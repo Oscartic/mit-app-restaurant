@@ -1,0 +1,45 @@
+#header_title {
+    text-align: center;
+}
+#header_title h1 {
+    color: #a31f34;
+    padding-top: 1rem;
+    font-weight: 600;
+}
+#header_title h1 span {
+    color: #606060;
+}
+.main_menu {
+    color: #363636;
+    font-size: 1.1rem;
+    display: inline-block;
+    padding: 0.3rem;
+    margin: 1rem 0;
+    width: 140px;
+    max-width: 140px;
+    border-right: 1px solid #b1b1b1;
+    text-align: center;
+    transition: ease 1s;
+}
+.main_menu span {
+    display: inline-block;
+    margin-right: 0.5rem;
+}
+.main_menu:hover {
+    background: #e7e7e7;
+    color: #a31f34;
+}
+
+.active {
+    background: #e7e7e7;
+    color: #a31f34;
+    font-size: 1.1rem;
+    display: inline-block;
+    padding: 0.3rem;
+    margin: 1rem 0;
+    width: 140px;
+    max-width: 140px;
+    border-right: 1px solid #b1b1b1;
+    text-align: center;
+    transition: ease 1s;
+}

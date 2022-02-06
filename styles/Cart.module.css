@@ -1,0 +1,34 @@
+.cart {
+    text-align: right;
+}
+
+.cart .btn {
+    font-size: 1rem;
+    font-weight: 700;
+} 
+.cart .btn .title {
+    cursor: pointer;
+    padding: 0.22rem;
+}
+
+.cart .btn .quantity {
+    display: inline-block;
+    background: #d9363e;
+    font-size: 0.7rem;
+    font-weight: 400;
+    color: white;
+    padding-top: 0.25rem;
+    width:25px;
+    height: 25px;
+    border-radius: 50%;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.cart .btn .total {
+    color: #a5a5a5;
+    display: block;
+    font-size: 0.8rem;
+    margin-right: 2rem;
+    margin-top: -0.2rem;
+}
