@@ -55,6 +55,10 @@
   line-height: 1.5;
   font-size: 1.5rem;
 }
+.main_title span {
+  font-size: 1.4rem;
+  color: #c6c6c6;;
+}
 
 .code {
   background: #fafafa;
