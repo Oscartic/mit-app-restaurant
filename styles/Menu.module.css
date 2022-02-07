@@ -1,13 +1,9 @@
-#header_title {
+#header {
     text-align: center;
+    margin: 1rem 0;
 }
-#header_title h1 {
-    color: #a31f34;
-    padding-top: 1rem;
-    font-weight: 600;
-}
-#header_title h1 span {
-    color: #606060;
+#header img {
+    max-width: 350px !important;
 }
 .main_menu a {
     color: #363636;
