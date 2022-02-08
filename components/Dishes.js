@@ -2,7 +2,8 @@ import { Row } from 'antd';
 import { useEffect, useState } from 'react';
 import CardDishes from './CardDishes';
 import SkeletonCard from './skeletons/Card';
-const Dishes = () => {
+
+const Dishes = ({restaurantId}) => {
     const dishes = [
         {id: 1, name: 'WoodsHill', description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus egestas convallis ullamcorper.", price: 5.20},
         {id: 2, name: 'Fiorellas', description: "Aliquam in neque sagittis mattis ante vae lobortis lectus. Aliquam sagittis tellus ac est convallis posuere.", price: 1.10},
@@ -12,6 +13,7 @@ const Dishes = () => {
     ]
 
     const [dishesList, setDishesList] = useState([]);
+    console.log("restaurant ID >>> ", restaurantId);
 
     useEffect(() => {
         if(dishesList <= 0){
