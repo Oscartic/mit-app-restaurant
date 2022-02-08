@@ -1,0 +1,22 @@
+.dishes_price {
+    text-align: center;
+    display: block;
+    margin: 1.2rem;
+}
+.dishes_action {
+    display: block;
+    padding: 0.1rem 0.5rem;
+    background: #818181;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    max-width: 120px;
+    text-align: center;
+    margin: auto;
+    color: white;
+    transition: ease 1s;
+    cursor: pointer;
+}
+.dishes_action:hover {
+    background: #d9363e;
+    color: white;
+}
