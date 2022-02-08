@@ -17,7 +17,6 @@ const Restaurants = () => {
       <Head>
         <title>Restaurants</title>
       </Head>
-      <SearchForm />
       <CardsRestaurants />
     </>
   )

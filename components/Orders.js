@@ -77,8 +77,6 @@ const Orders = () => {
 
     return (
         <>
-            <h2>Order history</h2>
-            <Divider />
             {/* <Table columns={columns} dataSource={data} /> */}
             <Empty description="You do not record orders" />
             
