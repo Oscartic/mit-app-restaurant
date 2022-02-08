@@ -2,6 +2,7 @@ import { Row, Empty } from 'antd';
 import { useEffect, useState } from 'react';
 import CardRestaurant from './CardRestaurant';
 import SearchForm from './SearchForm';
+import SkeletonCard from './skeletons/Card';
 const CardsRestaurants = () => {
     const dataRestaurants = [
         {id: 1, name: 'WoodsHill', description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus egestas convallis ullamcorper."},
@@ -11,22 +12,24 @@ const CardsRestaurants = () => {
     ];
     const [restaurants, setRestaurants] = useState([]);
     const [renderList, setRenderList] = useState([]);
+    const [isFetch, setIsFetch] = useState(true);
+    const [error, setError] = useState('');
 
     useEffect(() => {
         if(restaurants.length <= 0) { 
             setRestaurants(dataRestaurants);
             setRenderList(dataRestaurants);
+            setIsFetch(false);
         }
     }, []);
-
-
 
     return (
         <>
             <SearchForm list={restaurants} setList={setRenderList} />
             <Row gutter={[16, 24]}>
             {
-                renderList.length === 0 && <Empty description="We did not find any restaurant for your search"/>
+                renderList.length === 0 && 
+                <Empty description="We did not find any restaurant for your search" style={{margin: '1rem auto'}}/>
             }
             {
                 renderList.map(item => {
@@ -34,7 +37,8 @@ const CardsRestaurants = () => {
                         <CardRestaurant key={item.id} name={item.name} description={item.description}/>
                         )
                     })
-                }
+            }
+            <SkeletonCard />
             </Row> 
         </>
     )
