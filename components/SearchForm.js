@@ -4,11 +4,15 @@ import styles from '../styles/SearchForm.module.css'
 
 const SearchForm = ({list, setList}) => {
 
+    const [loading, setLoading] = useState(false);
+
     const onSearch = e => {
         const query = e.target.value;
+        setLoading(true);
         setTimeout(() => {
             const result = list.filter(item => item.name.toLowerCase().includes(query)) || [];
             setList(result);
+            setLoading(false);
         },1000)
     };
 
@@ -23,7 +27,7 @@ const SearchForm = ({list, setList}) => {
                 size="large"
                 onChange={(e) => onSearch(e)}
                 style={{ margin: '2rem 0'}}
-                loading={false} 
+                loading={loading} 
             />
         </div> 
     )
