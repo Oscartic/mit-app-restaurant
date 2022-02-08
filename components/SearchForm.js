@@ -1,13 +1,13 @@
 import { Input } from 'antd';
 import styles from '../styles/SearchForm.module.css'
 
-const SearchForm = ({data, setData}) => {
+const SearchForm = ({list, setList}) => {
 
-    console.log(data);
+    console.log(list);
     const onSearch = value => {
-        const result = data.filter(item => item.name.toLowerCase().includes(value));
+        const result = list.filter(item => item.name.toLowerCase().includes(value)) || [];
         console.log(value, result);
-        setData(result);
+        setList(result);
     };
 
     

@@ -1,4 +1,4 @@
-import { Row } from 'antd';
+import { Row, Empty } from 'antd';
 import { useEffect, useState } from 'react';
 import CardRestaurant from './CardRestaurant';
 import SearchForm from './SearchForm';
@@ -10,17 +10,26 @@ const CardsRestaurants = () => {
         {id: 4, name: 'Mompelie', description: "Amet dignissim lino neque in feugiat Praesent iaculis facilisis mattis ante vitae, lobortis semper."},
     ];
     const [restaurants, setRestaurants] = useState([]);
+    const [renderList, setRenderList] = useState([]);
 
     useEffect(() => {
-        if(restaurants.length <= 0) setRestaurants(dataRestaurants);
+        if(restaurants.length <= 0) { 
+            setRestaurants(dataRestaurants);
+            setRenderList(dataRestaurants);
+        }
     }, []);
+
+
 
     return (
         <>
-            <SearchForm data={restaurants} setData={setRestaurants} />
+            <SearchForm list={restaurants} setList={setRenderList} />
             <Row gutter={[16, 24]}>
             {
-                restaurants.map(item => {
+                renderList.length === 0 && <Empty description="We did not find any restaurant for your search"/>
+            }
+            {
+                renderList.map(item => {
                     return (
                         <CardRestaurant key={item.id} name={item.name} description={item.description}/>
                         )
