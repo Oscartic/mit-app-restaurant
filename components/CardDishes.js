@@ -1,7 +1,8 @@
 import { Card, Col } from 'antd';
-import { EditOutlined, EllipsisOutlined, SettingOutlined, PlusCircleOutlined } from '@ant-design/icons';
+import styles from '../styles/Dishes.module.css';
+import { PlusCircleOutlined } from '@ant-design/icons';
 
-const CardRestaurant = ({name, description}) => {
+const CardRestaurant = ({name, description, price}) => {
     const { Meta } = Card;
     
     const addToCart = () => {
@@ -17,13 +18,12 @@ const CardRestaurant = ({name, description}) => {
                         src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
                     />
                 }
-                actions={[
-                    <PlusCircleOutlined ey="addToCart" onClick={addToCart} />,
-                ]}
                 >
                 <Meta
                     description={description}
-                />            
+                /> 
+                <span className={styles.dishes_price}>${price} USD</span>
+                <span className={styles.dishes_action} onClick={addToCart}><PlusCircleOutlined /> Add to cart</span>           
             </Card>
         </Col>
     );
