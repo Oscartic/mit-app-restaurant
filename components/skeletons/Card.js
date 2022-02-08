@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { Skeleton, Switch, Card, Avatar } from 'antd';
-import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
+import { Skeleton, Switch, Card, Col, Link, Rate } from 'antd';
+import styles from '../../styles/Skeleton.module.css';
 
 
 const SkeletonCard = () => {
     
     const { Meta } = Card;
+    const { Image } = Skeleton;
     
     const [loading, setLoading] = useState(true);
 
@@ -16,36 +17,66 @@ const SkeletonCard = () => {
 
     return (
         <>
-            <Switch checked={!loading} onChange={onChange} />
-
-            <Card style={{ width: 300, marginTop: 16 }} loading={loading} 
-            cover={
-                <Skeleton.Image />
-            }
-            >
-            <Meta
-                avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                title="Card title"
-                description="This is the description"
-            />
-            </Card>
-
-            <Card
-            style={{ width: 300, marginTop: 16 }}
-            actions={[
-                <SettingOutlined key="setting" />,
-                <EditOutlined key="edit" />,
-                <EllipsisOutlined key="ellipsis" />,
-            ]}
-            >
-            <Skeleton loading={loading} avatar active>
-                <Meta
-                avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                title="Card title"
-                description="This is the description"
-                />
-            </Skeleton>
-            </Card>
+            <Col className="gutter-row" span={6}>
+                <Card
+                    
+                    cover={
+                        <Image className={styles.skeleton_image}/>
+                    }
+                >
+                    <Skeleton loading={loading}  active>
+                        <Meta
+                            title="Card title"
+                            description="This is the description"
+                        />
+                    </Skeleton>
+                </Card>
+            </Col>
+            <Col className="gutter-row" span={6}>
+                <Card
+                    cover={
+                        <Image className={styles.skeleton_image}/>
+                    }
+                    
+                >
+                    <Skeleton loading={loading}  active>
+                        <Meta
+                            title="Card title"
+                            description="This is the description"
+                        />
+                    </Skeleton>
+                </Card>
+            </Col>
+            <Col className="gutter-row" span={6}>
+                <Card
+                    cover={
+                        <Image className={styles.skeleton_image}/>
+                    }
+                    
+                >
+                    <Skeleton loading={loading} active>
+                        <Meta
+                            title="Card title"
+                            description="This is the description"
+                        />
+                    </Skeleton>
+                </Card>
+            </Col>
+            <Col className="gutter-row" span={6}>
+                <Card
+                    cover={
+                        <Image className={styles.skeleton_image}/>
+                    }
+                    
+                >
+                    <Skeleton loading={loading}  active>
+                        <Meta
+                            title="Card title"
+                            description="This is the description"
+                        />
+                    </Skeleton>
+                </Card>
+            </Col>              
         </>
     );
 }
