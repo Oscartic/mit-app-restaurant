@@ -17,9 +17,11 @@ const CardsRestaurants = () => {
 
     useEffect(() => {
         if(restaurants.length <= 0) { 
-            setRestaurants(dataRestaurants);
-            setRenderList(dataRestaurants);
-            setIsFetch(false);
+            setTimeout(() => {
+                setRestaurants(dataRestaurants);
+                setRenderList(dataRestaurants);
+                setIsFetch(false);
+            }, 2000);
         }
     }, []);
 
@@ -27,18 +29,20 @@ const CardsRestaurants = () => {
         <>
             <SearchForm list={restaurants} setList={setRenderList} />
             <Row gutter={[16, 24]}>
-            {
-                renderList.length === 0 && 
-                <Empty description="We did not find any restaurant for your search" style={{margin: '1rem auto'}}/>
-            }
-            {
-                renderList.map(item => {
-                    return (
-                        <CardRestaurant key={item.id} name={item.name} description={item.description}/>
-                        )
-                    })
-            }
-            <SkeletonCard />
+                {
+                    renderList.length === 0 && !isFetch && 
+                    <Empty description="We did not find any restaurant for your search" style={{margin: '1rem auto'}}/>
+                }
+                {
+                    renderList.map(item => {
+                        return (
+                            <CardRestaurant key={item.id} name={item.name} description={item.description}/>
+                            )
+                        })
+                }
+                {
+                    isFetch && <SkeletonCard />
+                }
             </Row> 
         </>
     )
