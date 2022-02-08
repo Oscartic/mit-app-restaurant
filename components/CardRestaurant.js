@@ -16,7 +16,7 @@ const CardRestaurant = ({name, description}) => {
                 >
                 <Meta
                     title={
-                        <Link as={`/restaurants/${name}`} href="restaurants/[restaurant]">
+                        <Link as={`/restaurants/${name}`} href="/restaurants/[restaurant]">
                             {name}
                         </Link>
                     }
