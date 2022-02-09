@@ -49,9 +49,15 @@
     font-style: italic;
 }
 .item_cart .item_cart_desc .item_quantity {
-    display: block;
-    color: #0089CA;
+    display: inline-block;
+    color: #505050;
     font-size: 1.5rem;
+}
+.item_cart .item_cart_desc .item_quantity .add,
+.item_cart .item_cart_desc .item_quantity .subtract {
+    cursor: pointer;
+    color: #c02a2c;
+    display: inline-block;
 }
 .item_cart .item_cart_desc .item_quantity span {
     width: 40px;
