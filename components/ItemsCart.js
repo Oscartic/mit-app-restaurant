@@ -13,8 +13,6 @@ const ItemsCart = ({id, quantity, price, dishName, description, restaurantId, re
             }
             return item;
         });
-        totalCart();
-        totalItems();
         setItemsCart(newItemsCart);
     }
 
@@ -22,14 +20,19 @@ const ItemsCart = ({id, quantity, price, dishName, description, restaurantId, re
         if(quantity < 1) return null;
         quantity += 1; 
         const newItemsCart = itemsCart.map(item => {
-            if(item.id == id && item.restaurantId == restaurantId) {
+            if(item.id == id) {
                 item.quantity = quantity
             }
             return item;
         });
-        totalCart();
-        totalItems();
         setItemsCart(newItemsCart);
+    }
+
+    const removeItem = () => {
+        const updateItemsCart = itemsCart.filter( item => {
+            return item.id !== id;
+        });
+        setItemsCart(updateItemsCart);
     }
 
     const AmountPerItem = (price, quantity) => {
@@ -48,7 +51,7 @@ const ItemsCart = ({id, quantity, price, dishName, description, restaurantId, re
                     <span>{quantity}</span>
                     <PlusCircleOutlined onClick={addAmount} className={styles.add}/>
                 </div>
-                <div className={styles.item_remove}>
+                <div className={styles.item_remove} onClick={removeItem}>
                 <DeleteOutlined /> <span>Remove</span>
                 </div>
             </div>
