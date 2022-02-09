@@ -2,7 +2,7 @@ import Link from 'next/Link'
 import { Card, Avatar, Col, Rate } from 'antd';
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 
-const CardRestaurant = ({name, description}) => {
+const CardRestaurant = ({id, name, description}) => {
     const { Meta } = Card;
     return (
         <Col className="gutter-row" span={6}>
@@ -16,7 +16,7 @@ const CardRestaurant = ({name, description}) => {
                 >
                 <Meta
                     title={
-                        <Link as={`/restaurants/${name}`} href="restaurants/[restaurant]">
+                        <Link as={`/restaurants/${id}/${name}`} href="/restaurants/[id]/[restaurant]">
                             {name}
                         </Link>
                     }

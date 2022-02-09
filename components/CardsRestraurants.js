@@ -36,7 +36,7 @@ const CardsRestaurants = () => {
                 {
                     renderList.map(item => {
                         return (
-                            <CardRestaurant key={item.id} name={item.name} description={item.description}/>
+                            <CardRestaurant key={item.id} id={item.id} name={item.name} description={item.description}/>
                             )
                         })
                 }

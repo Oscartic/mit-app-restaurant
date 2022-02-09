@@ -11,7 +11,6 @@ const TopMenu = () => {
   
   const isActive = (path) => {
     const router = useRouter();
-    console.log(router.pathname, path);
     return router.pathname == path ? styles.active : "";
   }
 
@@ -22,13 +21,13 @@ const TopMenu = () => {
       </div>
       <Row style={{ margin: '2rem 0'}}>
         <Col span={16} offset={2} className={styles.main_menu}>
-        <Link as={`/restaurants/`} href="restaurants/">
+        <Link as={`/restaurants/`} href="/restaurants/">
             <a className={isActive('/restaurants')} >
               <CrownOutlined />
               Restaurants
             </a>
           </Link>
-          <Link as={`/account/`} href="account/">
+          <Link as={`/account/`} href="/account/">
             <a className={isActive('/account')}>
               <SettingOutlined />
               Account
