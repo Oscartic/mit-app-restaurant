@@ -13,6 +13,8 @@ const Cart = ({quantity, total}) => {
     ];
 
     const [itemsCart, setItemsCart] = useState([]);
+    const [totalQuantity, setTotalQuantity] = useState(0);
+    const [totalAmount, setTotalAmount] = useState(0);
     const [visible, setVisible] = useState(false);
 
     useEffect(() => {
@@ -33,7 +35,6 @@ const Cart = ({quantity, total}) => {
             total += element.price;
         });
         return <div className={styles.estimated_total}><span className={styles.text}>Estimated total: </span><span className={styles.value}>${total}</span></div>; 
-
     }
 
     return (
@@ -44,10 +45,10 @@ const Cart = ({quantity, total}) => {
                 Cart 
             </span>
             <span className={styles.quantity}>
-                {quantity} 
+                {totalQuantity} 
             </span>
             <span className={styles.total}>
-                $ {Number(total).toFixed(2)}
+                $ {Number(totalAmount).toFixed(2)}
             </span>
         </div>
         <Drawer

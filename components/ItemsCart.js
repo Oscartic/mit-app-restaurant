@@ -5,24 +5,32 @@ import styles from '../styles/Cart.module.css';
 const ItemsCart = ({id, quantity, price, dishName, description, restaurantId, restaurantName, itemsCart, setItemsCart}) => {
 
     const subtractAmount = () => {
-        if(quantity > 1) {
-            quantity -= 1;
-            console.log("Subtract amount", quantity);
-
-        }
-        
+        if(quantity <= 1) return null 
+        quantity -= 1;
+        const newItemsCart = itemsCart.map(item => {
+            if(item.id == id && item.restaurantId == restaurantId) {
+                item.quantity = quantity
+            }
+            return item;
+        });
+        setItemsCart(newItemsCart);
     }
 
     const addAmount = () => {
-        if(quantity >= 1) {
-            console.log(itemsCart);
-            const itemToUpdate = itemsCart.filter((item) => item.id == id && item.restaurantId == restaurantId)
-            console.log(itemToUpdate[0].quantity =+ 1); 
-            // itemToUpdate[0].quantity = newQuantity;
-            // const itemIndexPosition = itemsCart.findIndex((item) => item.id == id && item.restaurantId == restaurantId)
-            // itemsCart[itemIndexPosition] = itemToUpdate[0];
-            // console.log(itemsCart);
-            
+        if(quantity < 1) return null;
+        quantity += 1; 
+        const newItemsCart = itemsCart.map(item => {
+            if(item.id == id && item.restaurantId == restaurantId) {
+                item.quantity = quantity
+            }
+            return item;
+        });
+        setItemsCart(newItemsCart);
+    }
+
+    const AmountPerItem = (price, quantity) => {
+        if(price && quantity) {
+            return (price * quantity)
         }
     }
 
@@ -38,7 +46,7 @@ const ItemsCart = ({id, quantity, price, dishName, description, restaurantId, re
                 </div>
             </div>
             <div className={styles.item_cart_price}>
-                <span>${price}</span>
+                <span>${AmountPerItem(price, quantity)}</span>
                 <h5>{restaurantName}</h5>
             </div>
         </div>
