@@ -2,10 +2,10 @@ import { CheckOutlined, PlusCircleOutlined, MinusCircleOutlined } from '@ant-des
 import styles from '../styles/Cart.module.css';
 
 
-const ItemsCart = ({id, quantity, price, dishName, description, restaurantId, restaurantName, itemsCart, setItemsCart}) => {
+const ItemsCart = ({id, quantity, price, dishName, description, restaurantId, restaurantName, itemsCart, setItemsCart, totalCart, totalItems}) => {
 
     const subtractAmount = () => {
-        if(quantity <= 1) return null 
+        if(quantity <= 1) return null; 
         quantity -= 1;
         const newItemsCart = itemsCart.map(item => {
             if(item.id == id && item.restaurantId == restaurantId) {
@@ -13,6 +13,8 @@ const ItemsCart = ({id, quantity, price, dishName, description, restaurantId, re
             }
             return item;
         });
+        totalCart();
+        totalItems();
         setItemsCart(newItemsCart);
     }
 
@@ -25,12 +27,14 @@ const ItemsCart = ({id, quantity, price, dishName, description, restaurantId, re
             }
             return item;
         });
+        totalCart();
+        totalItems();
         setItemsCart(newItemsCart);
     }
 
     const AmountPerItem = (price, quantity) => {
         if(price && quantity) {
-            return (price * quantity)
+            return Number(price * quantity).toFixed(2);
         }
     }
 
