@@ -59,6 +59,17 @@
     color: #c02a2c;
     display: inline-block;
 }
+.item_cart .item_cart_desc .item_remove {
+    margin-left: 2rem;
+    display: inline-block;
+    color:#a5a5a5;
+    cursor: pointer;
+    transition: ease 1s;
+    height: 30px;
+}
+.item_cart .item_cart_desc .item_remove:hover {
+    color: #ce7b00;
+}
 .item_cart .item_cart_desc .item_quantity span {
     width: 40px;
 }

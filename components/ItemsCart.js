@@ -1,4 +1,4 @@
-import { CheckOutlined, PlusCircleOutlined, MinusCircleOutlined } from '@ant-design/icons';
+import { CheckOutlined, PlusCircleOutlined, MinusCircleOutlined, DeleteOutlined } from '@ant-design/icons';
 import styles from '../styles/Cart.module.css';
 
 
@@ -47,6 +47,9 @@ const ItemsCart = ({id, quantity, price, dishName, description, restaurantId, re
                     <MinusCircleOutlined onClick={subtractAmount} className={styles.subtract} />
                     <span>{quantity}</span>
                     <PlusCircleOutlined onClick={addAmount} className={styles.add}/>
+                </div>
+                <div className={styles.item_remove}>
+                <DeleteOutlined /> <span>Remove</span>
                 </div>
             </div>
             <div className={styles.item_cart_price}>
