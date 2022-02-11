@@ -34,7 +34,7 @@ const CartProvider = (props) => {
 
     const addAmountFromRestaurant = (dish) => {
         const search = itemsCart.find(e => e.id === dish.id);
-        console.log(search);
+        console.log("search", search);
         if(search) {
             const addQuantityItemCart = itemsCart.map(item => {
                 if(item.id == dish.id && item.quantity >= 1) {
@@ -42,7 +42,7 @@ const CartProvider = (props) => {
                 }
                 return item;
             });
-            console.log(addQuantityItemCart)
+            console.log("addQuantityItemCart", addQuantityItemCart)
             setItemsCart(addQuantityItemCart);
         } else {
             const newItem =  {
@@ -53,8 +53,9 @@ const CartProvider = (props) => {
                 restaurantId: dish.restaurantId,  
                 description: dish.description,
             };
-            itemsCart.push(newItem);
-            setItemsCart(itemsCart);
+            const newCart = [...itemsCart, newItem]
+            console.log(newCart)
+            setItemsCart(newCart);
         }
     }
 
