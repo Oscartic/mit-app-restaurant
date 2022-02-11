@@ -5,10 +5,10 @@ import SkeletonCard from './skeletons/Card';
 
 const Dishes = ({restaurantId}) => {
     const dishes = [
-        {id: 1, name: 'WoodsHill', description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus egestas convallis ullamcorper.", price: 5.20},
-        {id: 2, name: 'Fiorellas', description: "Aliquam in neque sagittis mattis ante vae lobortis lectus. Aliquam sagittis tellus ac est convallis posuere.", price: 1.10},
-        {id: 3, name: 'Karma', description: "Fusce dignissim neque in feugiat accumsan. Praesent iaculis facilisis mattis ante vitae, lobortis semper.", price: 3.20},
-        {id: 4, name: 'Mompelie', description: "Amet dignissim lino neque in feugiat Praesent iaculis facilisis mattis ante vitae, lobortis semper.", price: 1.00},
+        {id: 1, name: 'WoodsHill', description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus egestas convallis ullamcorper.", price: 5.20, restaurantId: 1},
+        {id: 2, name: 'Fiorellas', description: "Aliquam in neque sagittis mattis ante vae lobortis lectus. Aliquam sagittis tellus ac est convallis posuere.", price: 1.10, restaurantId: 1},
+        {id: 3, name: 'Karma', description: "Fusce dignissim neque in feugiat accumsan. Praesent iaculis facilisis mattis ante vitae, lobortis semper.", price: 3.20, restaurantId: 1},
+        {id: 4, name: 'Mompelie', description: "Amet dignissim lino neque in feugiat Praesent iaculis facilisis mattis ante vitae, lobortis semper.", price: 1.00, restaurantId: 1},
 
     ]
 
@@ -28,7 +28,7 @@ const Dishes = ({restaurantId}) => {
         {
             dishesList.map(item => {
             return (
-                    <CardDishes key={item.id} name={item.name} description={item.description} price={item.price}/>
+                    <CardDishes key={item.id} dish={item}/>
                 )
             })
         }

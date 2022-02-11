@@ -16,10 +16,63 @@ const CartProvider = (props) => {
         if(itemsCart.length <= 0) setItemsCart(data);
     },[]);
 
+    const totalCart = () => {
+        let acc = 0;
+        itemsCart.map(item => {
+            return acc += (item.quantity * item.price);
+        });
+        return Number(acc).toFixed(2);
+    }
+
+    const totalItems = () => {
+        let acc = 0; 
+        itemsCart.map(item => {
+            return acc += item.quantity;
+        });
+        return Number(acc);
+    }
+
+    const addAmountFromRestaurant = (dish) => {
+        const search = itemsCart.find(e => e.id === dish.id);
+        console.log(search);
+        if(search) {
+            const addQuantityItemCart = itemsCart.map(item => {
+                if(item.id == dish.id && item.quantity >= 1) {
+                    item.quantity += 1;
+                }
+                return item;
+            });
+            console.log(addQuantityItemCart)
+            setItemsCart(addQuantityItemCart);
+        } else {
+            const newItem =  {
+                id: dish.id, 
+                quantity: 1, 
+                price: dish.price, 
+                dishName: dish.name, 
+                restaurantId: dish.restaurantId,  
+                description: dish.description,
+            };
+            itemsCart.push(newItem);
+            console.log(itemsCart);
+            setItemsCart(itemsCart);
+        }
+    }
+
+    const showItemCart = (dishId) => {
+        const itemCart = itemsCart.find(e => e.id === dishId);
+        if(!itemCart) return null;
+        console.log(itemCart) 
+    };
+
     const value = useMemo(() => {
         return ({
             itemsCart,
-            setItemsCart
+            setItemsCart,
+            totalCart,
+            totalItems,
+            addAmountFromRestaurant,
+            showItemCart
         });
     }, [itemsCart, setItemsCart]);
 

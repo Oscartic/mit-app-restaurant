@@ -7,7 +7,7 @@ import useCart from "../Hooks/useCart";
 
 const Cart = () => {
 
-    const { itemsCart, setItemsCart } = useCart();
+    const { itemsCart, setItemsCart, totalCart, totalItems } = useCart();
 
     const [visible, setVisible] = useState(false);
 
@@ -18,23 +18,6 @@ const Cart = () => {
     const onClose = () => {
         setVisible(false);
     };
-
-    const totalCart = () => {
-        let acc = 0;
-        itemsCart.map(item => {
-            return acc += (item.quantity * item.price);
-        });
-        return Number(acc).toFixed(2);
-    }
-
-    const totalItems = () => {
-        let acc = 0; 
-        itemsCart.map(item => {
-            return acc += item.quantity;
-        });
-        return Number(acc);
-    }
-
 
     return (    
         <div className={styles.cart}>
