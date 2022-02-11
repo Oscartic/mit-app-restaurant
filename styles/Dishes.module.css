@@ -20,3 +20,8 @@
     background: #d9363e;
     color: white;
 }
+.dishes_cart_quantity {
+    display: block;
+    margin: auto;
+    text-align: center;
+}

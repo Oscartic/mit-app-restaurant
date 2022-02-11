@@ -5,7 +5,14 @@ import useCart from '../Hooks/useCart';
 
 const CardRestaurant = ({dish}) => {
     const { Meta } = Card;
-    const { addAmountFromRestaurant } = useCart();
+    const { addAmountFromRestaurant, showItemCart } = useCart();
+    
+    const infoCart = () => {
+        const item = showItemCart(dish.id);
+        if(!item) return null;
+        console.log(item)
+        return <>in cart: {item.quantity}</>
+    }
 
     return (
         <Col className="gutter-row" span={6}>
@@ -21,7 +28,8 @@ const CardRestaurant = ({dish}) => {
                     description={dish.description}
                 /> 
                 <span className={styles.dishes_price}>${dish.price} USD</span>
-                <span className={styles.dishes_action} onClick={() => addAmountFromRestaurant(dish)}><PlusCircleOutlined /> Add to cart</span>           
+                <span className={styles.dishes_action} onClick={() => addAmountFromRestaurant(dish)}><PlusCircleOutlined /> Add to cart </span>
+                <span className={styles.dishes_cart_quantity}>{ infoCart() }</span>
             </Card>
         </Col>
     );

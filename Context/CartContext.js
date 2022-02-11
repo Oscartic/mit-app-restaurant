@@ -54,7 +54,6 @@ const CartProvider = (props) => {
                 description: dish.description,
             };
             itemsCart.push(newItem);
-            console.log(itemsCart);
             setItemsCart(itemsCart);
         }
     }
@@ -62,7 +61,7 @@ const CartProvider = (props) => {
     const showItemCart = (dishId) => {
         const itemCart = itemsCart.find(e => e.id === dishId);
         if(!itemCart) return null;
-        console.log(itemCart) 
+        return itemCart; 
     };
 
     const value = useMemo(() => {
