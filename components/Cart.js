@@ -3,21 +3,14 @@ import { Drawer, Empty } from "antd";
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import styles from '../styles/Cart.module.css'
 import ItemsCart from "./ItemsCart";
+import useCart from "../Hooks/useCart";
 
 const Cart = () => {
 
-    const data = [
-        {id: 1, quantity: 1, price: 5.13, dishName: 'Swsopwaal', restaurantId: 2, restaurantName: 'WoodsHill', description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus egestas convallis ullamcorper."},
-        {id: 2, quantity: 2, price: 2.99, dishName: 'Logua Logua', restaurantId: 2, restaurantName: 'WoodsHill', description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus egestas convallis ullamcorper."},
-        {id: 4, quantity: 4, price: 1.11, dishName: 'Mulan', restaurantId: 2, restaurantName: 'Karma', description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus egestas convallis ullamcorper."}
-    ];
+    const { itemsCart, setItemsCart, totalCart, totalItems } = useCart();
 
-    const [itemsCart, setItemsCart] = useState([]);
     const [visible, setVisible] = useState(false);
 
-    useEffect(() => {
-        if(itemsCart.length <= 0) setItemsCart(data);
-    },[]);
     const showDrawer = () => {
         setVisible(true);
     };
@@ -25,23 +18,6 @@ const Cart = () => {
     const onClose = () => {
         setVisible(false);
     };
-
-    const totalCart = () => {
-        let acc = 0;
-        itemsCart.map(item => {
-            return acc += (item.quantity * item.price);
-        });
-        return Number(acc).toFixed(2);
-    }
-
-    const totalItems = () => {
-        let acc = 0; 
-        itemsCart.map(item => {
-            return acc += item.quantity;
-        });
-        return Number(acc);
-    }
-
 
     return (    
         <div className={styles.cart}>
