@@ -54,7 +54,6 @@ const CartProvider = (props) => {
                 description: dish.description,
             };
             const newCart = [...itemsCart, newItem]
-            console.log(newCart)
             setItemsCart(newCart);
         }
     }
