@@ -21,7 +21,26 @@
     color: white;
 }
 .dishes_cart_quantity {
+    background: #f4f4f4;
+    border-radius: 50%;
+    color: #c0282e;
     display: block;
-    margin: auto;
+    font-size: 0.75rem;
+    height: 42px;
+    margin: 0.3rem auto;
+    padding-top: 0.75rem;
     text-align: center;
+    width: 42px;
+}
+.dishes_cart_quantity_empty {
+    background: #fefefe;
+    border-radius: 50%;
+    color: #eaeaea;
+    display: block;
+    font-size: 0.75rem;
+    height: 40px;
+    margin: 0.3rem auto;
+    padding-top: 0.65rem;
+    text-align: center;
+    width: 40px;
 }
