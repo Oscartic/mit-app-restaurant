@@ -1,15 +1,14 @@
 import { Form, Input, Button, Checkbox } from 'antd';
+import { useState } from 'react';
 import useFirebase from '../Hooks/useFirebase';
 
 const SignUpForm = () => { 
     const { user, register } = useFirebase();
 
-    console.log(user.email);
-
     const onFinish = async (values) => {
-        const { username, password } = values;
+        const { nickname, email , password } = values;
         try {
-            const result = await register(username, password);    
+            const result = await register({nickname, email, password});    
             console.log(result);        
         } catch (error) {
             console.log("[SignUpForm.onFinish] >>> ", error.message);
@@ -17,9 +16,7 @@ const SignUpForm = () => {
         console.log('Success:', values);
     };
     
-    const onFinishFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
-    };
+
     return (
 
         <Form
@@ -34,23 +31,9 @@ const SignUpForm = () => {
                 remember: true,
             }}
             onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
+            
             autoComplete="off"
         >
-
-            <Form.Item
-                label="Name"
-                name="name"
-                rules={[
-                {
-                    required: true,
-                    message: 'Please input your name!',
-                },
-                ]}
-            >
-                <Input />
-            </Form.Item>
-
             <Form.Item
                 label="Nickname"
                 name="nickname"
