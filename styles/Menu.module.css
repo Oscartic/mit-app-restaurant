@@ -11,13 +11,16 @@
     font-weight: 700;
     display: inline-block;
     padding: 0.3rem;
-    margin: 1rem 0;
+    margin: 1.4rem 0;
     width: 140px;
     max-width: 140px;
     border-right: 0.1px solid #b1b1b1;
     text-align: center;
     transition: ease 1s;
 }
+.main_menu a:last-child {
+    border-right: none;
+} 
 .main_menu a span {
     display: inline-block;
     margin-right: 0.5rem;
@@ -32,5 +35,22 @@
     background: #eeeeee;;
 }
 .user_info {
-    text-align: right;
+    text-align: center;
+}
+.user_info .show_user {
+    margin: 1rem 0;
+    display: block;
+}
+.user_info .show_user a {
+    background: #ececec;
+    border-radius: 5px;
+    color: #585858;
+    display: block;
+    margin: auto;
+    max-width: 100px;
+    transition: ease 1s;
+}
+.user_info .show_user a:hover {
+    background: #d1d1d1;
+    color: #d8363d;
 }

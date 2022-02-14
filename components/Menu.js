@@ -23,7 +23,7 @@ const TopMenu = () => {
         <Image src={LogoApp} />
       </div>
       <Row style={{ margin: '2rem 0'}}>
-        <Col span={13} offset={2} className={styles.main_menu}>
+        <Col span={15} offset={2} className={styles.main_menu}>
         <Link as={`/restaurants/`} href="/restaurants/">
             <a className={isActive('/restaurants')} >
               <CrownOutlined />
@@ -36,16 +36,15 @@ const TopMenu = () => {
               Account
             </a>
           </Link>
-          <Link as={'/'} href="/">
-            <a className={styles.main_menu}>
-              <LogoutOutlined />
-              Logout
-            </a>
-          </Link>
         </Col>
-        <Col span={5}>
+        <Col span={3}>
           <div className={styles.user_info}>
-            <span>hello {user.email}!</span>
+            <span className={styles.show_user}>
+              {user?.email ? `Hello ${user.email}` : 'Sign In'}
+              <Link as={'/'} href="/">
+                <a onClick={logout}> <LogoutOutlined /> Logout</a>
+              </Link>
+            </span>
           </div>
         </Col>
         <Col span={2} >
