@@ -13,14 +13,11 @@ const FirebaseProvider = (props) => {
     });
     
 
-    const register = async (name, nickname, email, password) => {
+    const register = async ({nickname, email, password}) => {
         try {
-            const newUser = await createUserWithEmailAndPassword(auth, email, password);
-            
-            // await updateProfile(auth, {
-            //     name,
-            //     nickname
-            // })
+            await createUserWithEmailAndPassword(auth, email, password);
+            await updateProfile(auth.currentUser, {displayName: nickname});
+            console.log('[FirebaseProvider.register] The user has been created! 👌');
         } catch (error) {
             console.log("[FirebaseProvider.register] >>> ", error.message);
         }
