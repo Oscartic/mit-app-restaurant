@@ -1,15 +1,20 @@
 import { Form, Input, Button, Checkbox } from 'antd';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import useFirebase from '../Hooks/useFirebase';
 
 const SignUpForm = () => { 
     const { user, register } = useFirebase();
 
+    const router = useRouter();
+
     const onFinish = async (values) => {
         const { nickname, email , password } = values;
         try {
             const result = await register({nickname, email, password});    
-            console.log(result);        
+            if(result) {
+                router.push('/restaurants/');
+            }        
         } catch (error) {
             console.log("[SignUpForm.onFinish] >>> ", error.message);
         }

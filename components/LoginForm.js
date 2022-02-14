@@ -2,15 +2,20 @@ import { Form, Input, Button, Checkbox } from 'antd';
 import Link from 'next/Link';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import useFirebase from '../Hooks/useFirebase';
+import { useRouter } from 'next/router';
+
 
 const LoginForm = () => { 
     const { user, logIn } = useFirebase();
+
+    const router = useRouter();
 
     const onFinish = async (values) => {
         const { username, password } = values;
         try {
             const result = await logIn(username, password);    
-            console.log(result);        
+            console.log(result);
+            router.push('/restaurants/');        
         } catch (error) {
             console.log("[Loginform] >>> ", error);
         }
