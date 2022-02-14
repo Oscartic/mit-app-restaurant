@@ -13,8 +13,12 @@ const CartProvider = (props) => {
     const [itemsCart, setItemsCart] = useState([]);
 
     useEffect(() => {
-        if(itemsCart.length <= 0) setItemsCart(data);
-    },[]);
+        if(itemsCart.length <= 0) {
+            // setItemsCart(data);
+            const localData = localStorage.getItem('cart');
+            setItemsCart(JSON.parse(localData));
+        }
+    },[itemsCart]);
 
     const totalCart = () => {
         let acc = 0;
