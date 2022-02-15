@@ -26,8 +26,9 @@ const FirebaseProvider = (props) => {
 
     const logIn = async (email, password) => {
         try {
-            const sessionUser = await signInWithEmailAndPassword(auth, email, password);
-            console.log(sessionUser.user);
+            const { user } = await signInWithEmailAndPassword(auth, email, password);
+            const idToken = await user.getIdToken();
+            console.log(idToken)
         } catch (error) {
             console.log("[FirebaseProvider.logIn] >>> ", error.message);
         }
