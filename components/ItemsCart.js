@@ -14,6 +14,7 @@ const ItemsCart = ({id, quantity, price, dishName, description, restaurantId, re
             return item;
         });
         setItemsCart(newItemsCart);
+        localStorage.setItem('cart', JSON.stringify(itemsCart));
     }
 
     const addAmount = () => {
@@ -26,6 +27,7 @@ const ItemsCart = ({id, quantity, price, dishName, description, restaurantId, re
             return item;
         });
         setItemsCart(newItemsCart);
+        localStorage.setItem('cart', JSON.stringify(itemsCart));
     }
 
     const removeItem = () => {
@@ -33,6 +35,7 @@ const ItemsCart = ({id, quantity, price, dishName, description, restaurantId, re
             return item.id !== id;
         });
         setItemsCart(updateItemsCart);
+        localStorage.setItem('cart', JSON.stringify(updateItemsCart));
     }
 
     const AmountPerItem = (price, quantity) => {

@@ -40,10 +40,21 @@ const TopMenu = () => {
         <Col span={3}>
           <div className={styles.user_info}>
             <span className={styles.show_user}>
-              {user?.email ? `Hello ${user.email}` : 'Sign In'}
-              <Link as={'/'} href="/">
-                <a onClick={logout}> <LogoutOutlined /> Logout</a>
-              </Link>
+              {user?.email ? 
+                <>
+                    Hello, {user.email}
+                    <Link as={'/'} href="/">
+                      <a onClick={logout}> <LogoutOutlined /> Logout</a>
+                    </Link>
+                </>
+              : 
+                <>
+                  Account
+                  <Link as={'/login/'} href="/login/">
+                    <a><LoginOutlined /> Login</a>
+                  </Link>
+                </>  
+              }
             </span>
           </div>
         </Col>
