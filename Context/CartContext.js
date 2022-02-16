@@ -13,12 +13,13 @@ const CartProvider = (props) => {
     const [itemsCart, setItemsCart] = useState([]);
 
     useEffect(() => {
-        if(itemsCart.length <= 0) {
+        const localData = JSON.parse(localStorage.getItem('cart')) || [];
+        console.log(localData)
+        if(localData.length > 0) {
             // setItemsCart(data);
-            const localData = localStorage.getItem('cart');
-            setItemsCart(JSON.parse(localData));
+            setItemsCart(localData);
         }
-    },[itemsCart]);
+    },[]);
 
     const totalCart = () => {
         let acc = 0;
@@ -60,6 +61,8 @@ const CartProvider = (props) => {
             const newCart = [...itemsCart, newItem]
             setItemsCart(newCart);
         }
+        localStorage.setItem('cart', JSON.stringify(itemsCart));
+
     }
 
     const showItemCart = (dishId) => {
