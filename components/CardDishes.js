@@ -26,7 +26,7 @@ const CardRestaurant = ({dish}) => {
                 <Meta
                     description={dish.description}
                 /> 
-                <span className={styles.dishes_price}>${dish.price} USD</span>
+                <span className={styles.dishes_price}>${Number(dish.price.$numberDecimal).toFixed(2)} USD</span>
                 <span className={styles.dishes_action} onClick={() => addAmountFromRestaurant(dish)}><PlusCircleOutlined /> Add to cart </span>
                 { infoCart ()}
             </Card>
