@@ -2,7 +2,7 @@ import { CheckOutlined, PlusCircleOutlined, MinusCircleOutlined, DeleteOutlined 
 import styles from '../styles/Cart.module.css';
 
 
-const ItemsCart = ({id, quantity, price, dishName, description, restaurantId, restaurantName, itemsCart, setItemsCart, totalCart, totalItems}) => {
+const ItemsCart = ({id, quantity, price, dishName, description, restaurantId, restaurantName, itemsCart, setItemsCart }) => {
 
     const subtractAmount = () => {
         if(quantity <= 1) return null; 
@@ -60,7 +60,10 @@ const ItemsCart = ({id, quantity, price, dishName, description, restaurantId, re
             </div>
             <div className={styles.item_cart_price}>
                 <span>${AmountPerItem(price, quantity)}</span>
-                <h5>{restaurantName}</h5>
+                <span className={styles.info_rest}>
+                    <h5>Restaurant:</h5>
+                    <p>{restaurantName}</p>
+                </span>
             </div>
         </div>
     );

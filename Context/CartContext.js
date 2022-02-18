@@ -31,7 +31,7 @@ const CartProvider = (props) => {
         return Number(acc);
     }
 
-    const addAmountFromRestaurant = (dish) => {
+    const addAmountFromRestaurant = (dish, restaurantName, restaurantId) => {
         const search = itemsCart.find(e => e.id === dish.id);
         if(search) {
             const addQuantityItemCart = itemsCart.map(item => {
@@ -49,6 +49,8 @@ const CartProvider = (props) => {
                 dishName: dish.name, 
                 restaurantId: dish.restaurantId,  
                 description: dish.description,
+                restaurantId,
+                restaurantName
             };
             const newCart = [...itemsCart, newItem]
             setItemsCart(newCart);

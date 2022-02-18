@@ -57,8 +57,11 @@ const Dishes = () => {
             {  Object.keys(restaurant).length > 0 &&
                 restaurant.dishes.map(item => {
                 return (
-                        // <span>{JSON.stringify(item)}</span>
-                        <CardDishes key={item.dishId} dish={item}/>
+                        <CardDishes 
+                            key={item.dishId} 
+                            dish={item} 
+                            restaurantName={restaurant.name} 
+                            restaurantId={restaurant.restaurantId}/>
                     )
                 })
             }
