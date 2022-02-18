@@ -36,7 +36,7 @@ const Cart = () => {
             <Drawer
                 title="MitRestaurants Cart"
                 placement="right"
-                width={440}
+                width={495}
                 onClose={onClose}
                 visible={visible}
             >
