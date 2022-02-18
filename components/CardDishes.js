@@ -8,7 +8,7 @@ const CardRestaurant = ({dish, restaurantName, restaurantId}) => {
     const { addAmountFromRestaurant, showItemCart } = useCart();
 
     const infoCart = () => {
-        const item = showItemCart(dish.id);
+        const item = showItemCart(dish.dishId);
         if(!item) return <span className={styles.dishes_cart_quantity_empty}> <ShoppingCartOutlined /> 0 </span>;
         return <span className={styles.dishes_cart_quantity}> <ShoppingCartOutlined /> {item.quantity} </span>
     }

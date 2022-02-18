@@ -44,8 +44,8 @@ const Cart = () => {
                     itemsCart.map((item)=> {
                         return (
                             <ItemsCart 
-                                key={`${item.id}${item.restaurantId}`}
-                                id={item.id} 
+                                key={item.dishId}
+                                dishId={item.dishId} 
                                 quantity={item.quantity} 
                                 price={item.price} 
                                 dishName={item.dishName} 
