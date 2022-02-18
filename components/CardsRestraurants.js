@@ -15,12 +15,14 @@ const CardsRestaurants = () => {
     const fetchRestaurants = async () => {
         try {
             const{ status, data } = await axios.get('http://localhost:5001/api/restaurants'); 
-            if(status !== 200) return console.log("error in api");
+            if(status !== 200) return console.log("[CardsRestaurants][fetchRestaurants] >>> data no exist");
             setRestaurants(data.restaurants);
-            setRenderList(data.restaurants) 
+            setRenderList(data.restaurants);
+            setIsFetch(false) 
         } catch (error) {
             console.log("[CardsRestaurants][fetchRestaurants] error >>> ", error);
             setError(error.message);
+            setIsFetch(false);
         }
     };
 
@@ -29,7 +31,6 @@ const CardsRestaurants = () => {
             setError('');
             setTimeout(() => {
                 fetchRestaurants();
-                setIsFetch(false);
             }, 2000);
         }
     }, []);
@@ -46,13 +47,14 @@ const CardsRestaurants = () => {
                             showIcon
                         />
                 }
-                {
-                    isFetch && <SkeletonCard />
-                }
+                
             <Row gutter={[16, 24]}>
                 {
                     renderList.length === 0 && !isFetch && 
                     <Empty description="We did not find any restaurant for your search" style={{margin: '1rem auto'}}/>
+                }
+                {
+                    isFetch && <SkeletonCard />
                 }
                 {
                     renderList.map(item => {
