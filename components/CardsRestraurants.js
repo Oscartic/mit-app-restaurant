@@ -44,7 +44,14 @@ const CardsRestaurants = () => {
                 {
                     renderList.map(item => {
                         return (
-                            <CardRestaurant key={item.id} id={item.id} name={item.name} description={item.description}/>
+                            <CardRestaurant 
+                                key={item.restaurantId} 
+                                restaurantId={item.restaurantId} 
+                                name={item.name} 
+                                description={item.description} 
+                                imageUrl={item.imageUrl} 
+                                dishes={item.dishes}
+                            />
                             )
                         })
                 }
