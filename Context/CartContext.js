@@ -4,12 +4,6 @@ export const CartContext = createContext();
 
 const CartProvider = (props) => {
 
-    const data = [
-        {id: 1, quantity: 1, price: 5.13, dishName: 'Swsopwaal', restaurantId: 2, restaurantName: 'WoodsHill', description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus egestas convallis ullamcorper."},
-        {id: 2, quantity: 2, price: 2.99, dishName: 'Logua Logua', restaurantId: 2, restaurantName: 'WoodsHill', description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus egestas convallis ullamcorper."},
-        {id: 4, quantity: 4, price: 1.11, dishName: 'Mulan', restaurantId: 2, restaurantName: 'Karma', description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus egestas convallis ullamcorper."}
-    ];
-
     const [itemsCart, setItemsCart] = useState([]);
 
     useEffect(() => {
@@ -37,9 +31,8 @@ const CartProvider = (props) => {
         return Number(acc);
     }
 
-    const addAmountFromRestaurant = (dish) => {
+    const addAmountFromRestaurant = (dish, restaurantName, restaurantId) => {
         const search = itemsCart.find(e => e.id === dish.id);
-        console.log("search", search);
         if(search) {
             const addQuantityItemCart = itemsCart.map(item => {
                 if(item.id == dish.id && item.quantity >= 1) {
@@ -47,16 +40,17 @@ const CartProvider = (props) => {
                 }
                 return item;
             });
-            console.log("addQuantityItemCart", addQuantityItemCart)
             setItemsCart(addQuantityItemCart);
         } else {
             const newItem =  {
                 id: dish.id, 
                 quantity: 1, 
-                price: dish.price, 
+                price: dish.price.$numberDecimal, 
                 dishName: dish.name, 
                 restaurantId: dish.restaurantId,  
                 description: dish.description,
+                restaurantId,
+                restaurantName
             };
             const newCart = [...itemsCart, newItem]
             setItemsCart(newCart);

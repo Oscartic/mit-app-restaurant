@@ -1,26 +1,36 @@
-import { Row, Empty } from 'antd';
+import { Row, Empty, Alert } from 'antd';
 import { useEffect, useState } from 'react';
 import CardRestaurant from './CardRestaurant';
 import SearchForm from './SearchForm';
 import SkeletonCard from './skeletons/Card';
+import axios from 'axios';
+
 const CardsRestaurants = () => {
-    const dataRestaurants = [
-        {id: 1, name: 'WoodsHill', description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus egestas convallis ullamcorper."},
-        {id: 2, name: 'Fiorellas', description: "Aliquam in neque sagittis mattis ante vae lobortis lectus. Aliquam sagittis tellus ac est convallis posuere."},
-        {id: 3, name: 'Karma', description: "Fusce dignissim neque in feugiat accumsan. Praesent iaculis facilisis mattis ante vitae, lobortis semper."},
-        {id: 4, name: 'Mompelie', description: "Amet dignissim lino neque in feugiat Praesent iaculis facilisis mattis ante vitae, lobortis semper."},
-    ];
+
     const [restaurants, setRestaurants] = useState([]);
     const [renderList, setRenderList] = useState([]);
     const [isFetch, setIsFetch] = useState(true);
     const [error, setError] = useState('');
 
+    const fetchRestaurants = async () => {
+        try {
+            const{ status, data } = await axios.get('http://localhost:5001/api/restaurants'); 
+            if(status !== 200) return console.log("[CardsRestaurants][fetchRestaurants] >>> data no exist");
+            setRestaurants(data.restaurants);
+            setRenderList(data.restaurants);
+            setIsFetch(false) 
+        } catch (error) {
+            console.log("[CardsRestaurants][fetchRestaurants] error >>> ", error);
+            setError(error.message);
+            setIsFetch(false);
+        }
+    };
+
     useEffect(() => {
-        if(restaurants.length <= 0) { 
+        if(restaurants.length <= 0 || renderList.length <= 0) { 
+            setError('');
             setTimeout(() => {
-                setRestaurants(dataRestaurants);
-                setRenderList(dataRestaurants);
-                setIsFetch(false);
+                fetchRestaurants();
             }, 2000);
         }
     }, []);
@@ -28,20 +38,37 @@ const CardsRestaurants = () => {
     return (
         <>
             <SearchForm list={restaurants} setList={setRenderList} />
+                { 
+                    error !== '' &&
+                        <Alert
+                            message="Error"
+                            description={error}
+                            type="error"
+                            showIcon
+                        />
+                }
+                
             <Row gutter={[16, 24]}>
                 {
                     renderList.length === 0 && !isFetch && 
                     <Empty description="We did not find any restaurant for your search" style={{margin: '1rem auto'}}/>
                 }
                 {
-                    renderList.map(item => {
-                        return (
-                            <CardRestaurant key={item.id} id={item.id} name={item.name} description={item.description}/>
-                            )
-                        })
+                    isFetch && <SkeletonCard />
                 }
                 {
-                    isFetch && <SkeletonCard />
+                    renderList.map(item => {
+                        return (
+                            <CardRestaurant 
+                                key={item.restaurantId} 
+                                restaurantId={item.restaurantId} 
+                                name={item.name} 
+                                description={item.description} 
+                                imageUrl={item.imageUrl} 
+                                dishes={item.dishes}
+                            />
+                            )
+                        })
                 }
             </Row> 
         </>
