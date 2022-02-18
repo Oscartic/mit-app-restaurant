@@ -10,7 +10,6 @@ const CartProvider = (props) => {
         const localData = JSON.parse(localStorage.getItem('cart')) || [];
         console.log(localData)
         if(localData.length > 0) {
-            // setItemsCart(data);
             setItemsCart(localData);
         }
     },[]);
@@ -32,10 +31,10 @@ const CartProvider = (props) => {
     }
 
     const addAmountFromRestaurant = (dish, restaurantName, restaurantId) => {
-        const search = itemsCart.find(e => e.id === dish.id);
+        const search = itemsCart.find(e => e.dishId === dish.dishId);
         if(search) {
             const addQuantityItemCart = itemsCart.map(item => {
-                if(item.id == dish.id && item.quantity >= 1) {
+                if(item.dishId == dish.dishId && item.quantity >= 1) {
                     item.quantity += 1;
                 }
                 return item;
@@ -43,7 +42,7 @@ const CartProvider = (props) => {
             setItemsCart(addQuantityItemCart);
         } else {
             const newItem =  {
-                id: dish.id, 
+                dishId: dish.dishId, 
                 quantity: 1, 
                 price: dish.price.$numberDecimal, 
                 dishName: dish.name, 
@@ -60,7 +59,7 @@ const CartProvider = (props) => {
     }
 
     const showItemCart = (dishId) => {
-        const itemCart = itemsCart.find(e => e.id === dishId);
+        const itemCart = itemsCart.find(e => e.dishId === dishId);
         if(!itemCart) return null;
         return itemCart; 
     };
