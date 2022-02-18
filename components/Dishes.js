@@ -1,39 +1,49 @@
-import { Row } from 'antd';
+import { Row, Empty } from 'antd';
 import { useEffect, useState } from 'react';
 import CardDishes from './CardDishes';
 import SkeletonCard from './skeletons/Card';
+import axios from 'axios';
+import { useRouter } from 'next/router';
 
-const Dishes = ({restaurantId}) => {
-    const dishes = [
-        {id: 1, name: 'WoodsHill', description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus egestas convallis ullamcorper.", price: 5.20, restaurantId: 1},
-        {id: 2, name: 'Fiorellas', description: "Aliquam in neque sagittis mattis ante vae lobortis lectus. Aliquam sagittis tellus ac est convallis posuere.", price: 1.10, restaurantId: 1},
-        {id: 3, name: 'Karma', description: "Fusce dignissim neque in feugiat accumsan. Praesent iaculis facilisis mattis ante vitae, lobortis semper.", price: 3.20, restaurantId: 1},
-        {id: 4, name: 'Mompelie', description: "Amet dignissim lino neque in feugiat Praesent iaculis facilisis mattis ante vitae, lobortis semper.", price: 1.00, restaurantId: 1},
+const Dishes = () => {
+ 
+    const [restaurant, setRestaurant] = useState({});
 
-    ]
+    const router = useRouter();
+    const { restaurantId } = router.query;
+    
 
-    const [dishesList, setDishesList] = useState([]);
-    console.log("restaurant ID >>> ", restaurantId);
-
+    const fetchRestaurant = async () => {
+        try {
+            const url = `http://localhost:5001/api/restaurants/${restaurantId}`;
+            const { data } = await axios.get(url); 
+            if(!data) return console.log("error in api");
+            setRestaurant(data.restaurant);
+    
+        } catch (error) {
+            console.log("[Dishes][fetchRestaurant] error >>> ", error);
+        }
+    };
+    
     useEffect(() => {
-        if(dishesList <= 0){
-            setTimeout(()=>{
-                setDishesList(dishes);
-            },2000);
-        } 
-    }, []);
+        if(!router.isReady) return;
+        fetchRestaurant();
+    }, [router.isReady]);
 
     return (
         <Row gutter={[16, 24]}>
-        {
-            dishesList.map(item => {
+        {  Object.keys(restaurant).length > 0 ?
+            restaurant.dishes.map(item => {
             return (
-                    <CardDishes key={item.id} dish={item}/>
+                    // <span>{JSON.stringify(item)}</span>
+                    <CardDishes key={item.dishId} dish={item}/>
                 )
             })
+        :
+            <Empty description="We did not find any dish for this restaurant" style={{margin: '1rem auto'}}/>
         }
         {
-            dishesList <= 0 && <SkeletonCard />
+            restaurant.dishes <= 0 && <SkeletonCard />
         }
         </Row> 
     )
