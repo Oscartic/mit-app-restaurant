@@ -1,4 +1,4 @@
-import { Row, Empty } from 'antd';
+import { Row, Empty, Alert } from 'antd';
 import { useEffect, useState } from 'react';
 import CardRestaurant from './CardRestaurant';
 import SearchForm from './SearchForm';
@@ -20,12 +20,13 @@ const CardsRestaurants = () => {
             setRenderList(data.restaurants) 
         } catch (error) {
             console.log("[CardsRestaurants][fetchRestaurants] error >>> ", error);
+            setError(error.message);
         }
     };
 
     useEffect(() => {
         if(restaurants.length <= 0 || renderList.length <= 0) { 
-            
+            setError('');
             setTimeout(() => {
                 fetchRestaurants();
                 setIsFetch(false);
@@ -36,6 +37,18 @@ const CardsRestaurants = () => {
     return (
         <>
             <SearchForm list={restaurants} setList={setRenderList} />
+                { 
+                    error !== '' &&
+                        <Alert
+                            message="Error"
+                            description={error}
+                            type="error"
+                            showIcon
+                        />
+                }
+                {
+                    isFetch && <SkeletonCard />
+                }
             <Row gutter={[16, 24]}>
                 {
                     renderList.length === 0 && !isFetch && 
@@ -54,9 +67,6 @@ const CardsRestaurants = () => {
                             />
                             )
                         })
-                }
-                {
-                    isFetch && <SkeletonCard />
                 }
             </Row> 
         </>
