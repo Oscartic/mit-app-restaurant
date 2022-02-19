@@ -4,6 +4,8 @@ import { ShoppingCartOutlined, CreditCardOutlined } from '@ant-design/icons';
 import styles from '../styles/Cart.module.css'
 import ItemsCart from "./ItemsCart";
 import useCart from "../Hooks/useCart";
+import StripeCheckout from 'react-stripe-checkout';
+import axios from 'axios'; 
 
 const Cart = () => {
 
@@ -17,6 +19,20 @@ const Cart = () => {
 
     const onClose = () => {
         setVisible(false);
+    };
+
+    const makePayment = async token => {
+
+        try {
+            const respond = await axios.post(`http://localhost:5001/payment`, {
+                    token,
+                    itemsCart
+                }
+            );
+            console.log(respond);    
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (    
@@ -70,9 +86,17 @@ const Cart = () => {
                     itemsCart.length <= 0 &&
                     <Empty description="You still do not have selected dishes"/>
                 }
-                <Button type="primary" block onClick={() => alert("Vamos a pagar")}>
-                    <CreditCardOutlined /> Checkout all Dishes
-                </Button>
+                <StripeCheckout
+                    name="MitRestaurants"
+                    stripeKey={process.env.STRIPE_KEY}
+                    token={makePayment}
+                    amount={totalCart() * 100}
+                >
+                    <Button type="primary" block>
+                        <CreditCardOutlined /> Checkout all Dishes
+                    </Button>
+                </StripeCheckout>
+
             </Drawer>
         </div>
     );

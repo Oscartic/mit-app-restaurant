@@ -44,7 +44,7 @@ const CartProvider = (props) => {
             const newItem =  {
                 dishId: dish.dishId, 
                 quantity: 1, 
-                price: dish.price.$numberDecimal, 
+                price: Number(dish.price.$numberDecimal).toFixed(2), 
                 dishName: dish.name, 
                 restaurantId: dish.restaurantId,  
                 description: dish.description,
