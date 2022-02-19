@@ -9,6 +9,8 @@ npm run dev
 # or
 yarn dev
 ```
+## Environment Variables in Next.js 
+https://frontend-digest.com/environment-variables-in-next-js-9a272f0bf655
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
