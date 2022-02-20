@@ -5,6 +5,9 @@ export const CartContext = createContext();
 const CartProvider = (props) => {
 
     const [itemsCart, setItemsCart] = useState([]);
+    const [orderSummary, setOrderSummary] = useState({});
+    const [showModalOrder, setShowModalOrder] = useState(false);
+
 
     useEffect(() => {
         const localData = JSON.parse(localStorage.getItem('cart')) || [];
@@ -71,9 +74,13 @@ const CartProvider = (props) => {
             totalCart,
             totalItems,
             addAmountFromRestaurant,
-            showItemCart
+            showItemCart,
+            orderSummary,
+            setOrderSummary,
+            showModalOrder, 
+            setShowModalOrder
         });
-    }, [itemsCart, setItemsCart]);
+    }, [itemsCart, setItemsCart, orderSummary, showModalOrder]);
 
     return <CartContext.Provider value={value} {...props} /> 
 };
