@@ -24,7 +24,7 @@ const Cart = () => {
     const makePayment = async token => {
 
         try {
-            const respond = await axios.post(`http://localhost:5001/payment`, {
+            const respond = await axios.post(`${process.env.API_MIT_RESTAURANT_URL}/orders/payment`, {
                     token,
                     itemsCart
                 }

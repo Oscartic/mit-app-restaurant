@@ -15,7 +15,7 @@ const Dishes = () => {
 
     const fetchRestaurant = async () => {
         try {
-            const url = `http://localhost:5001/api/restaurants/${restaurantId}`;
+            const url = `${process.env.API_MIT_RESTAURANT_URL}/restaurants/${restaurantId}`;
             const { data } = await axios.get(url); 
             if(!data) return console.log("[Dishes][fetchRestaurant] >>> data no exist");
             setRestaurant(data.restaurant);
