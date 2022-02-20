@@ -1,6 +1,5 @@
-import Link from 'next/Link'
-import { Card, Avatar, Col, Rate } from 'antd';
-import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
+import Link from 'next/Link';
+import { Card, Col, Rate } from 'antd';
 
 const CardRestaurant = ({restaurantId, name, description, imageUrl}) => {
     const { Meta } = Card;

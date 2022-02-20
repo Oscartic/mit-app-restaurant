@@ -5,6 +5,9 @@ export const CartContext = createContext();
 const CartProvider = (props) => {
 
     const [itemsCart, setItemsCart] = useState([]);
+    const [orderSummary, setOrderSummary] = useState({});
+    const [showModalOrder, setShowModalOrder] = useState(false);
+
 
     useEffect(() => {
         const localData = JSON.parse(localStorage.getItem('cart')) || [];
@@ -44,7 +47,7 @@ const CartProvider = (props) => {
             const newItem =  {
                 dishId: dish.dishId, 
                 quantity: 1, 
-                price: dish.price.$numberDecimal, 
+                price: Number(dish.price.$numberDecimal).toFixed(2), 
                 dishName: dish.name, 
                 restaurantId: dish.restaurantId,  
                 description: dish.description,
@@ -71,9 +74,13 @@ const CartProvider = (props) => {
             totalCart,
             totalItems,
             addAmountFromRestaurant,
-            showItemCart
+            showItemCart,
+            orderSummary,
+            setOrderSummary,
+            showModalOrder, 
+            setShowModalOrder
         });
-    }, [itemsCart, setItemsCart]);
+    }, [itemsCart, setItemsCart, orderSummary, showModalOrder]);
 
     return <CartContext.Provider value={value} {...props} /> 
 };
