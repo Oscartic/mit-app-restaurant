@@ -1,5 +1,5 @@
 import { Form, Input, Button, Checkbox } from 'antd';
-import Link from 'next/Link';
+import Link from 'next/link';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import useFirebase from '../Hooks/useFirebase';
 import { useRouter } from 'next/router';

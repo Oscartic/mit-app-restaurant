@@ -1,5 +1,5 @@
 import { Menu, Row, Col } from 'antd';
-import Link from 'next/Link';
+import Link from 'next/link';
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import LogoApp from '../assets/images/logo-mitRest.png'
