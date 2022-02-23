@@ -1,41 +1,72 @@
-import { Row } from 'antd';
+import { Row, Empty, Alert} from 'antd';
 import { useEffect, useState } from 'react';
 import CardDishes from './CardDishes';
 import SkeletonCard from './skeletons/Card';
+import axios from 'axios';
+import { useRouter } from 'next/router';
 
-const Dishes = ({restaurantId}) => {
-    const dishes = [
-        {id: 1, name: 'WoodsHill', description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus egestas convallis ullamcorper.", price: 5.20, restaurantId: 1},
-        {id: 2, name: 'Fiorellas', description: "Aliquam in neque sagittis mattis ante vae lobortis lectus. Aliquam sagittis tellus ac est convallis posuere.", price: 1.10, restaurantId: 1},
-        {id: 3, name: 'Karma', description: "Fusce dignissim neque in feugiat accumsan. Praesent iaculis facilisis mattis ante vitae, lobortis semper.", price: 3.20, restaurantId: 1},
-        {id: 4, name: 'Mompelie', description: "Amet dignissim lino neque in feugiat Praesent iaculis facilisis mattis ante vitae, lobortis semper.", price: 1.00, restaurantId: 1},
+const Dishes = () => {
+ 
+    const [restaurant, setRestaurant] = useState({});
+    const [isFetch, setIsFetch] = useState(true);
+    const [error, setError] = useState('');
+    const router = useRouter();
+    const { restaurantId } = router.query;  
 
-    ]
-
-    const [dishesList, setDishesList] = useState([]);
-    console.log("restaurant ID >>> ", restaurantId);
-
+    const fetchRestaurant = async () => {
+        try {
+            const url = `${process.env.API_MIT_RESTAURANT_URL}/restaurants/${restaurantId}`;
+            const { data } = await axios.get(url); 
+            if(!data) return console.log("[Dishes][fetchRestaurant] >>> data no exist");
+            setRestaurant(data.restaurant);
+            setIsFetch(false);
+        } catch (error) {
+            console.log("[Dishes][fetchRestaurant] error >>> ", error);
+            setError(error.message);
+            setIsFetch(false);
+        }
+    };
+    
     useEffect(() => {
-        if(dishesList <= 0){
-            setTimeout(()=>{
-                setDishesList(dishes);
-            },2000);
-        } 
-    }, []);
+        if(!router.isReady) return;
+        setTimeout(() => {
+            setError('');
+            fetchRestaurant();           
+        }, 2000);
+    }, [router.isReady]);
 
     return (
-        <Row gutter={[16, 24]}>
-        {
-            dishesList.map(item => {
-            return (
-                    <CardDishes key={item.id} dish={item}/>
-                )
-            })
-        }
-        {
-            dishesList <= 0 && <SkeletonCard />
-        }
-        </Row> 
+        <>
+            { 
+                error !== '' &&
+                    <Alert
+                        message="Error"
+                        description={error}
+                        type="error"
+                        showIcon
+                    />
+            }
+            <Row gutter={[16, 24]}>
+            {
+                restaurant?.dishes <= 0 && !isFetch &&
+                <Empty description="We did not find any dish for this restaurant" style={{margin: '1rem auto'}}/>
+            }
+            {
+                isFetch && <SkeletonCard />
+            }
+            {  Object.keys(restaurant).length > 0 &&
+                restaurant.dishes.map(item => {
+                return (
+                        <CardDishes 
+                            key={item.dishId} 
+                            dish={item} 
+                            restaurantName={restaurant.name} 
+                            restaurantId={restaurant.restaurantId}/>
+                    )
+                })
+            }
+            </Row>
+        </> 
     )
 };
 

@@ -1,7 +1,6 @@
 .cart {
     text-align: right;
 }
-
 .cart .btn {
     font-size: 1rem;
     font-weight: 700;
@@ -10,7 +9,6 @@
     cursor: pointer;
     padding: 0.22rem;
 }
-
 .cart .btn .quantity {
     display: inline-block;
     background: #d9363e;
@@ -24,7 +22,6 @@
     margin-top: 1rem;
     text-align: center;
 }
-
 .cart .btn .total {
     color: #a5a5a5;
     display: block;
@@ -33,12 +30,10 @@
     margin-top: -0.2rem;
 }
 .item_cart {
-    display: flex;
     border-bottom: 1px dashed #ddd;
+    display: flex;
+    Justify-content: space-between;
     margin: 1rem 0;
-}
-.item_cart .item_cart_desc {
-
 }
 .item_cart .item_cart_desc h3 {
     font-size: 1.3rem;
@@ -47,6 +42,17 @@
 .item_cart .item_cart_desc p {
     color: #707070;
     font-style: italic;
+}
+.item_cart .item_cart_desc code {
+    background: #f5f5f5;
+    border-radius: 5px;
+    padding: 2px 10px;
+    display: block;
+    font-size: 0.75rem;
+    color: #cfcfcf;
+    width: 260px;
+    text-align: center;
+    margin-bottom: 0.5rem;
 }
 .item_cart .item_cart_desc .item_quantity {
     display: inline-block;
@@ -73,9 +79,6 @@
 .item_cart .item_cart_desc .item_quantity span {
     width: 40px;
 }
-.item_cart .item_cart_price {
-    
-}
 .item_cart .item_cart_price span {
     color: #c02a2c;
     display: block;
@@ -83,15 +86,31 @@
     font-weight: 300;
     text-align: center;
 }
-.item_cart .item_cart_price h5 {
+.item_cart .item_cart_price .info_rest {
+    display: block;
+    font-size: 0.8rem;
+}
+.item_cart .item_cart_price .info_rest h5 {
+    background-color: #0b5806;
+    border-radius: 5px 5px 0  0;
+    display: block;
     text-align: center;
-    color: #0b5806;
+    margin-bottom: 0;
+    color: #fff;
+}
+.item_cart .item_cart_price .info_rest p {
+    display: block;
+    color: #767676;;
+    background: #dfdfdf;
+    font-size: 0.7rem;
+    border-radius: 0 0 5px 5px;
 }
 .estimated_total {
     color: #c02a2c;
     display: flex;
     font-size: 1.6rem;
     justify-content: space-between;
+    margin: 1rem 0;
 }
 .estimated_total .text {  
     color: #505050;

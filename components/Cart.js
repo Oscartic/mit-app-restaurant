@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Drawer, Empty } from "antd";
-import { ShoppingCartOutlined } from '@ant-design/icons';
+import { Drawer, Empty, Button, Result } from "antd";
+import { ShoppingCartOutlined, CreditCardOutlined } from '@ant-design/icons';
 import styles from '../styles/Cart.module.css'
 import ItemsCart from "./ItemsCart";
 import useCart from "../Hooks/useCart";
+import StripeCheckout from 'react-stripe-checkout';
+import axios from 'axios'; 
+import PaymentModal from "./PaymentModal";
 
 const Cart = () => {
 
-    const { itemsCart, setItemsCart, totalCart, totalItems } = useCart();
+    const { itemsCart, setItemsCart, totalCart, totalItems, orderSummary, setOrderSummary, setShowModalOrder} = useCart();
 
     const [visible, setVisible] = useState(false);
+    const [orderFetch, setOrderFetch] = useState(false);
+    const [wasSuccessful, setWasSuccessful] = useState(false);
 
     const showDrawer = () => {
         setVisible(true);
@@ -17,6 +22,26 @@ const Cart = () => {
 
     const onClose = () => {
         setVisible(false);
+    };
+
+    const makePayment = async token => {
+
+        try {
+            setOrderFetch(true);
+            setShowModalOrder(true);
+            const respond = await axios.post(`${process.env.API_MIT_RESTAURANT_URL}/orders/payment`, {
+                token,
+                itemsCart
+            });
+
+            if(respond.status === 200) {
+                setWasSuccessful(true);
+                setOrderSummary(respond.data.order);
+            }
+            setOrderFetch(false);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (    
@@ -36,7 +61,7 @@ const Cart = () => {
             <Drawer
                 title="MitRestaurants Cart"
                 placement="right"
-                width={440}
+                width={495}
                 onClose={onClose}
                 visible={visible}
             >
@@ -44,8 +69,8 @@ const Cart = () => {
                     itemsCart.map((item)=> {
                         return (
                             <ItemsCart 
-                                key={`${item.id}${item.restaurantId}`}
-                                id={item.id} 
+                                key={item.dishId}
+                                dishId={item.dishId} 
                                 quantity={item.quantity} 
                                 price={item.price} 
                                 dishName={item.dishName} 
@@ -65,9 +90,32 @@ const Cart = () => {
                     <span className={styles.text}>Estimated total: </span>
                     <span className={styles.value}>${totalCart()}</span>
                 </div>
+                
                 {
                     itemsCart.length <= 0 &&
                     <Empty description="You still do not have selected dishes"/>
+                }
+                { itemsCart.length > 0 &&
+                    <>
+                        <StripeCheckout
+                            name="MitRestaurants"
+                            stripeKey={process.env.STRIPE_KEY}
+                            token={makePayment}
+                            amount={totalCart() * 100}
+                        >
+                            <Button type="primary" block>
+                                <CreditCardOutlined /> Checkout all Dishes
+                            </Button>
+                        </StripeCheckout>
+
+                        <PaymentModal 
+                            orderFetch={orderFetch} 
+                            setOrderFetch={setOrderFetch} 
+                            wasSuccessful={wasSuccessful}
+                            orderSummary={orderSummary}
+                            setVisible={setVisible}
+                        />    
+                    </>
                 }
             </Drawer>
         </div>

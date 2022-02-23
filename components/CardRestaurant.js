@@ -1,8 +1,7 @@
-import Link from 'next/Link'
-import { Card, Avatar, Col, Rate } from 'antd';
-import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
+import Link from 'next/link';
+import { Card, Col, Rate } from 'antd';
 
-const CardRestaurant = ({id, name, description}) => {
+const CardRestaurant = ({restaurantId, name, description, imageUrl}) => {
     const { Meta } = Card;
     return (
         <Col className="gutter-row" span={6}>
@@ -10,13 +9,13 @@ const CardRestaurant = ({id, name, description}) => {
                 cover={
                     <img
                         alt="example"
-                        src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                        src={imageUrl}
                     />
                 }
                 >
                 <Meta
                     title={
-                        <Link as={`/restaurants/${id}/${name}`} href="/restaurants/[id]/[restaurant]">
+                        <Link as={`/restaurants/${restaurantId}/${name}`} href="/restaurants/[restaurantId]/[restaurant]">
                             {name}
                         </Link>
                     }

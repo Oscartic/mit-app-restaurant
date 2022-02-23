@@ -4,21 +4,18 @@ export const CartContext = createContext();
 
 const CartProvider = (props) => {
 
-    const data = [
-        {id: 1, quantity: 1, price: 5.13, dishName: 'Swsopwaal', restaurantId: 2, restaurantName: 'WoodsHill', description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus egestas convallis ullamcorper."},
-        {id: 2, quantity: 2, price: 2.99, dishName: 'Logua Logua', restaurantId: 2, restaurantName: 'WoodsHill', description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus egestas convallis ullamcorper."},
-        {id: 4, quantity: 4, price: 1.11, dishName: 'Mulan', restaurantId: 2, restaurantName: 'Karma', description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus egestas convallis ullamcorper."}
-    ];
-
     const [itemsCart, setItemsCart] = useState([]);
+    const [orderSummary, setOrderSummary] = useState({});
+    const [showModalOrder, setShowModalOrder] = useState(false);
+
 
     useEffect(() => {
-        if(itemsCart.length <= 0) {
-            // setItemsCart(data);
-            const localData = localStorage.getItem('cart');
-            setItemsCart(JSON.parse(localData));
+        const localData = JSON.parse(localStorage.getItem('cart')) || [];
+        console.log(localData)
+        if(localData.length > 0) {
+            setItemsCart(localData);
         }
-    },[itemsCart]);
+    },[]);
 
     const totalCart = () => {
         let acc = 0;
@@ -36,34 +33,36 @@ const CartProvider = (props) => {
         return Number(acc);
     }
 
-    const addAmountFromRestaurant = (dish) => {
-        const search = itemsCart.find(e => e.id === dish.id);
-        console.log("search", search);
+    const addAmountFromRestaurant = (dish, restaurantName, restaurantId) => {
+        const search = itemsCart.find(e => e.dishId === dish.dishId);
         if(search) {
             const addQuantityItemCart = itemsCart.map(item => {
-                if(item.id == dish.id && item.quantity >= 1) {
+                if(item.dishId == dish.dishId && item.quantity >= 1) {
                     item.quantity += 1;
                 }
                 return item;
             });
-            console.log("addQuantityItemCart", addQuantityItemCart)
             setItemsCart(addQuantityItemCart);
         } else {
             const newItem =  {
-                id: dish.id, 
+                dishId: dish.dishId, 
                 quantity: 1, 
-                price: dish.price, 
+                price: Number(dish.price.$numberDecimal).toFixed(2), 
                 dishName: dish.name, 
                 restaurantId: dish.restaurantId,  
                 description: dish.description,
+                restaurantId,
+                restaurantName
             };
             const newCart = [...itemsCart, newItem]
             setItemsCart(newCart);
         }
+        localStorage.setItem('cart', JSON.stringify(itemsCart));
+
     }
 
     const showItemCart = (dishId) => {
-        const itemCart = itemsCart.find(e => e.id === dishId);
+        const itemCart = itemsCart.find(e => e.dishId === dishId);
         if(!itemCart) return null;
         return itemCart; 
     };
@@ -75,9 +74,13 @@ const CartProvider = (props) => {
             totalCart,
             totalItems,
             addAmountFromRestaurant,
-            showItemCart
+            showItemCart,
+            orderSummary,
+            setOrderSummary,
+            showModalOrder, 
+            setShowModalOrder
         });
-    }, [itemsCart, setItemsCart]);
+    }, [itemsCart, setItemsCart, orderSummary, showModalOrder]);
 
     return <CartContext.Provider value={value} {...props} /> 
 };

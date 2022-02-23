@@ -7,14 +7,13 @@ import styles from '../../../styles/Home.module.css'
 const Restaurant = () => {
 
   const router = useRouter();
-  console.log(router.query.id);
   return (
     <>
       <Head>
         <title>{ router.query.restaurant }</title>
       </Head>
       <h1 className={styles.main_title}>{ router.query.restaurant } <span><DoubleRightOutlined /></span> Dishes</h1>
-      <Dishes restaurantId={router.query.id}/>
+      <Dishes restaurantId={router.query.restaurantId}/>
     </>
   )
 }

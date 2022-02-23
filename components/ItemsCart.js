@@ -2,13 +2,13 @@ import { CheckOutlined, PlusCircleOutlined, MinusCircleOutlined, DeleteOutlined 
 import styles from '../styles/Cart.module.css';
 
 
-const ItemsCart = ({id, quantity, price, dishName, description, restaurantId, restaurantName, itemsCart, setItemsCart, totalCart, totalItems}) => {
+const ItemsCart = ({dishId, quantity, price, dishName, description, restaurantId, restaurantName, itemsCart, setItemsCart }) => {
 
     const subtractAmount = () => {
         if(quantity <= 1) return null; 
         quantity -= 1;
         const newItemsCart = itemsCart.map(item => {
-            if(item.id == id && item.restaurantId == restaurantId) {
+            if(item.dishId == dishId && item.restaurantId == restaurantId) {
                 item.quantity = quantity
             }
             return item;
@@ -21,7 +21,7 @@ const ItemsCart = ({id, quantity, price, dishName, description, restaurantId, re
         if(quantity < 1) return null;
         quantity += 1; 
         const newItemsCart = itemsCart.map(item => {
-            if(item.id == id) {
+            if(item.dishId == dishId) {
                 item.quantity = quantity
             }
             return item;
@@ -32,8 +32,9 @@ const ItemsCart = ({id, quantity, price, dishName, description, restaurantId, re
 
     const removeItem = () => {
         const updateItemsCart = itemsCart.filter( item => {
-            return item.id !== id;
+            return item.dishId !== dishId;
         });
+        console.log(updateItemsCart)
         setItemsCart(updateItemsCart);
         localStorage.setItem('cart', JSON.stringify(updateItemsCart));
     }
@@ -49,6 +50,7 @@ const ItemsCart = ({id, quantity, price, dishName, description, restaurantId, re
             <div className={styles.item_cart_desc}>
                 <h3><CheckOutlined /> {dishName}</h3>
                 <p>{description}</p>
+                <code>{dishId}</code>
                 <div className={styles.item_quantity}>
                     <MinusCircleOutlined onClick={subtractAmount} className={styles.subtract} />
                     <span>{quantity}</span>
@@ -60,7 +62,10 @@ const ItemsCart = ({id, quantity, price, dishName, description, restaurantId, re
             </div>
             <div className={styles.item_cart_price}>
                 <span>${AmountPerItem(price, quantity)}</span>
-                <h5>{restaurantName}</h5>
+                <span className={styles.info_rest}>
+                    <h5>Restaurant:</h5>
+                    <p>{restaurantName}</p>
+                </span>
             </div>
         </div>
     );
