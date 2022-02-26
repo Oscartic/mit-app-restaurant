@@ -10,7 +10,6 @@ const LoginForm = () => {
 
     const router = useRouter();
 
-    console.log(errorLogin, isFetch)
     const onFinish = async (values) => {
         const { username, password } = values;
         try {
