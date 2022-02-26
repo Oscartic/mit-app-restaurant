@@ -10,7 +10,7 @@ import useFirebase from '../Hooks/useFirebase';
 
 const TopMenu = () => {
 
-  const { user, logout, inSession } = useFirebase();
+  const { user, logout } = useFirebase();
   
   const isActive = (path) => {
     const router = useRouter();
@@ -24,21 +24,18 @@ const TopMenu = () => {
       </div>
       <Row style={{ margin: '2rem 0'}}>
         <Col span={15} offset={2} className={styles.main_menu}>
-        <Link as={`/restaurants/`} href="/restaurants/">
+          <Link as={`/restaurants/`} href="/restaurants/">
             <a className={isActive('/restaurants')} >
               <CrownOutlined />
               Restaurants
             </a>
           </Link>
-          { 
-            inSession &&
-            <Link as={`/account/`} href="/account/">
-              <a className={isActive('/account')}>
-                <SettingOutlined />
-                Account
-              </a>
-            </Link>
-          }
+          <Link as={`/account/`} href="/account/">
+            <a className={isActive('/account')}>
+              <SettingOutlined />
+              Account
+            </a>
+          </Link>
         </Col>
         <Col span={3}>
           <div className={styles.user_info}>
