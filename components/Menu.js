@@ -1,4 +1,4 @@
-import { Menu, Row, Col } from 'antd';
+import { Row, Col } from 'antd';
 import Link from 'next/link';
 import { useRouter } from 'next/router'
 import Image from 'next/image'
@@ -10,7 +10,7 @@ import useFirebase from '../Hooks/useFirebase';
 
 const TopMenu = () => {
 
-  const { user, logout, userToken } = useFirebase();
+  const { user, logout, inSession } = useFirebase();
   
   const isActive = (path) => {
     const router = useRouter();
@@ -31,7 +31,7 @@ const TopMenu = () => {
             </a>
           </Link>
           { 
-            userToken && userToken !== '' &&
+            inSession &&
             <Link as={`/account/`} href="/account/">
               <a className={isActive('/account')}>
                 <SettingOutlined />

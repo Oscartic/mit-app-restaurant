@@ -9,22 +9,24 @@ const FirebaseProvider = (props) => {
 
     const [user, setUser] = useState({});
     const [userToken, setUserToken] = useState('');
+    const [inSession, setInSession] = useState(false);
     const [csrfTokenState, setCsrfTokenState] = useState('');
     const [isFetch, setIsFetch] = useState(false);
     const [errorLogin, setErrorLogin] = useState('');
     const [errorSignUp, setErrorSignUp] = useState('');
     
     
+    useEffect(() => {
+        const localUserToken = JSON.parse(localStorage.getItem('userToken'));
+        if(localUserToken && localUserToken.length >= 1) {
+            setUserToken(localUserToken);
+            setInSession(true);
+        };
+    },[]);
+    
     onAuthStateChanged(auth, (currentUser) =>{
         setUser(currentUser);
     });
-
-    useEffect(() => {
-        const localUserToken = JSON.parse(localStorage.getItem('userToken')) || [];
-        if(localUserToken.length >= 1) {
-            setUserToken(localUserToken);
-        };
-    },[]);
 
     const setTokenBrowser = (firebaseToken) => { 
         const token = `Bearer ${firebaseToken}`;  
@@ -106,6 +108,7 @@ const FirebaseProvider = (props) => {
         try {
             await signOut(auth);
             setUserToken('');
+            setInSession(false);
             localStorage.removeItem('userToken');
         } catch (error) {
             console.log("[FirebaseProvider.logout] >>> ", error.message);
@@ -119,11 +122,12 @@ const FirebaseProvider = (props) => {
             isFetch,
             errorLogin,
             errorSignUp,
+            inSession,
             register,
             logIn,
             logout,
         });
-    },[user, userToken, isFetch, errorLogin]); 
+    },[user, userToken, isFetch, errorLogin, errorSignUp, inSession]); 
     return <FirebaseContext.Provider value={value} {...props} />
 
 }
