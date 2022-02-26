@@ -11,7 +11,9 @@ const FirebaseProvider = (props) => {
     const [userToken, setUserToken] = useState('');
     const [csrfTokenState, setCsrfTokenState] = useState('');
     const [isFetch, setIsFetch] = useState(false);
-    const [error, setError] = useState('');
+    const [errorLogin, setErrorLogin] = useState('');
+    const [errorSignUp, setErrorSignUp] = useState('');
+    
     
     onAuthStateChanged(auth, (currentUser) =>{
         setUser(currentUser);
@@ -61,22 +63,22 @@ const FirebaseProvider = (props) => {
     const register = async ({nickname, email, password}) => {
         try {
             setIsFetch(true);
-            setError('');
+            setErrorSignUp('');
             const { user } = await createUserWithEmailAndPassword(auth, email, password);
             await updateProfile(auth.currentUser, {displayName: nickname});
             const idToken = await user.getIdToken();
             setTokenBrowser(idToken, setUserToken);  
-            await axios.post(
+            const respond = await axios.post(
                 `${process.env.API_MIT_RESTAURANT_URL}/users/${user.uid}`,
                 {message: 'I send you the firebase ID, do your thing!'},
                 setHeaderReq(user.accessToken)
             );
-            isFetch(false);
+            setIsFetch(false);
             console.log('[FirebaseProvider.register] The user has been created! 👌');
-            
+            return respond;
         } catch (error) {
             console.log("[FirebaseProvider.register] >>> ", error.message);
-            setError(error.message);
+            setErrorSignUp(error.message);
             setIsFetch(false);
         }
         
@@ -87,7 +89,7 @@ const FirebaseProvider = (props) => {
     const logIn = async (email, password) => {
         try {
             setIsFetch(true);
-            setError('');
+            setErrorLogin('');
             const { user } = await signInWithEmailAndPassword(auth, email, password);
             const idToken = await user.getIdToken();
             setTokenBrowser(idToken, setUserToken);     
@@ -95,7 +97,7 @@ const FirebaseProvider = (props) => {
             return user;
         } catch (error) {
             console.log("[FirebaseProvider.logIn] >>> ", error.message);
-            setError(error.message);
+            setErrorLogin(error.message);
             setIsFetch(false);
         }
     };
@@ -115,12 +117,13 @@ const FirebaseProvider = (props) => {
             user,
             userToken,
             isFetch,
-            error,
+            errorLogin,
+            errorSignUp,
             register,
             logIn,
             logout,
         });
-    },[user, userToken, isFetch, error]); 
+    },[user, userToken, isFetch, errorLogin]); 
     return <FirebaseContext.Provider value={value} {...props} />
 
 }
