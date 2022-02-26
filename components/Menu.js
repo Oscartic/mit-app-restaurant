@@ -1,4 +1,4 @@
-import { Menu, Row, Col } from 'antd';
+import { Row, Col } from 'antd';
 import Link from 'next/link';
 import { useRouter } from 'next/router'
 import Image from 'next/image'
@@ -24,7 +24,7 @@ const TopMenu = () => {
       </div>
       <Row style={{ margin: '2rem 0'}}>
         <Col span={15} offset={2} className={styles.main_menu}>
-        <Link as={`/restaurants/`} href="/restaurants/">
+          <Link as={`/restaurants/`} href="/restaurants/">
             <a className={isActive('/restaurants')} >
               <CrownOutlined />
               Restaurants

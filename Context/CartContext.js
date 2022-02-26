@@ -11,10 +11,9 @@ const CartProvider = (props) => {
 
     useEffect(() => {
         const localData = JSON.parse(localStorage.getItem('cart')) || [];
-        console.log(localData)
         if(localData.length > 0) {
             setItemsCart(localData);
-        }
+        };
     },[]);
 
     const totalCart = () => {
