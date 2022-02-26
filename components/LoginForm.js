@@ -6,11 +6,11 @@ import { useRouter } from 'next/router';
 
 
 const LoginForm = () => { 
-    const { logIn, error, isFetch} = useFirebase();
+    const { logIn, errorLogin, isFetch} = useFirebase();
 
     const router = useRouter();
 
-    console.log(error, isFetch)
+    console.log(errorLogin, isFetch)
     const onFinish = async (values) => {
         const { username, password } = values;
         try {
@@ -24,10 +24,10 @@ const LoginForm = () => {
     return ( 
         <>
             <div style={{margin: 'auto', maxWidth: '450px'}}>
-                { error !== '' &&
+                { errorLogin !== '' &&
                         <Alert
                             message="Error"
-                            description={error}
+                            description={errorLogin}
                             type="error"
                             showIcon
                             style={{marginBottom: '1rem'}}
