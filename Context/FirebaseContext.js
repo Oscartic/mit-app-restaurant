@@ -21,7 +21,7 @@ const FirebaseProvider = (props) => {
             setUserToken(localUserToken);
             setInSession(true);
         };
-    },[inSession]);
+    },[inSession,userToken]);
     
     onAuthStateChanged(auth, (currentUser) =>{
         setUser(currentUser);
