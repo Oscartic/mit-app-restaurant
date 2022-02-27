@@ -13,8 +13,9 @@ const LoginForm = () => {
     const onFinish = async (values) => {
         const { username, password } = values;
         try {
-            const user = await logIn(username, password);    
-            if(user && user.uid) return router.push('/restaurants/');        
+            const { user } = await logIn(username, password);
+            if(user && user.firebaseUid) return router.push('/restaurants/');
+            return user;     
         } catch (error) {
             console.log("[Loginform] >>> ", error);
         }
