@@ -10,26 +10,34 @@ const AccountInfo = () => {
     const {user, inSession, userToken, setHeaderReq } = useFirebase();
     const [firebaseUid, setFirebaseUid] = useState('');
     const [userInfo, setUserInfo] = useState({});
+    const [orders, setOrders] = useState([]);
 
     useEffect(() => {
         if(user && user?.uid) setFirebaseUid(user.uid);
         if(firebaseUid && Object.keys(userInfo) == 0 && inSession) {
             getUserInfo();
+            getUserOrders();
         };
     },[user, firebaseUid]);
 
     const getUserInfo = async () => {
         const url = `${process.env.API_MIT_RESTAURANT_URL}/users/${firebaseUid}`;
-        console.log(url);
         const { data } = await axios.get( url,
             setHeaderReq(userToken)
         );
         if(data?.user) setUserInfo(data.user);
-        console.log(data.user);
         return data;
     };
 
-    console.log(userInfo)
+    const getUserOrders = async () => {
+        const url = `${process.env.API_MIT_RESTAURANT_URL}/orders/${firebaseUid}`;
+        const { data } = await axios.get( url,
+            setHeaderReq(userToken)
+        );
+        if(data?.orders) setOrders(data.orders);
+        return data;
+    };
+
     const { Text } = Typography;
     return (
         <>
@@ -41,7 +49,7 @@ const AccountInfo = () => {
                     <Divider>Personal info</Divider>
                     <UserInfo userInfo={userInfo} />
                     <Divider>Order history</Divider>
-                    <Orders />
+                    <Orders orders={orders} />
                 </>
             :
                 <Alert
