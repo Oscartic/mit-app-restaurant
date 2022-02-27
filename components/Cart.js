@@ -22,7 +22,6 @@ const Cart = () => {
         if(user && user?.uid) setFirebaseUid(user.uid);
     },[user]);
 
-    console.log(firebaseUid)
     const showDrawer = () => {
         setVisible(true);
     };
