@@ -10,7 +10,6 @@ const FirebaseProvider = (props) => {
     const [user, setUser] = useState({});
     const [userToken, setUserToken] = useState('');
     const [inSession, setInSession] = useState(false);
-    const [csrfTokenState, setCsrfTokenState] = useState('');
     const [isFetch, setIsFetch] = useState(false);
     const [errorLogin, setErrorLogin] = useState('');
     const [errorSignUp, setErrorSignUp] = useState('');
@@ -36,29 +35,12 @@ const FirebaseProvider = (props) => {
     const setHeaderReq = (token) => {
         return {
             headers: {
-                Authorization: `Bearer ${token}`,
+                Authorization: `${token}`,
                 Accept: 'application/json',
                 "Content-Type": "application/json",
             },
             credentials: "include",
             mode: "cors",
-        }
-    };
-    const setCertificate = async () => {
-        try {
-            const { data } = await axios.get(`http://localhost:5001/api/get_certificate`, {
-                headers: {
-                    Accept: 'application/json',
-                    "Content_Type": "application/json",
-                    "XSRF_TOKEN": csrfTokenState,
-                },
-                credentials: "include",
-                mode: "cors"
-            });
-            
-
-        } catch (error) {
-            
         }
     };
 
@@ -73,8 +55,9 @@ const FirebaseProvider = (props) => {
             const respond = await axios.post(
                 `${process.env.API_MIT_RESTAURANT_URL}/users/${user.uid}`,
                 {message: 'I send you the firebase ID, do your thing!'},
-                setHeaderReq(user.accessToken)
+                setHeaderReq(userToken)
             );
+            setInSession(true);
             setIsFetch(false);
             console.log('[FirebaseProvider.register] The user has been created! 👌');
             return respond;
@@ -94,8 +77,14 @@ const FirebaseProvider = (props) => {
             setErrorLogin('');
             const { user } = await signInWithEmailAndPassword(auth, email, password);
             const idToken = await user.getIdToken();
-            setTokenBrowser(idToken, setUserToken);     
+            setTokenBrowser(idToken, setUserToken);
+            setInSession(true);     
+            const { data } = await axios.get(
+                `${process.env.API_MIT_RESTAURANT_URL}/users/${user.uid}`,
+                setHeaderReq(userToken)
+            );
             setIsFetch(false);
+            return data;
             return user;
         } catch (error) {
             console.log("[FirebaseProvider.logIn] >>> ", error.message);
@@ -126,6 +115,7 @@ const FirebaseProvider = (props) => {
             register,
             logIn,
             logout,
+            setHeaderReq
         });
     },[user, userToken, isFetch, errorLogin, errorSignUp, inSession]); 
     return <FirebaseContext.Provider value={value} {...props} />
