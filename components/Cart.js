@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Drawer, Empty, Button, Result } from "antd";
+import { Drawer, Empty, Button } from "antd";
 import { ShoppingCartOutlined, CreditCardOutlined } from '@ant-design/icons';
 import styles from '../styles/Cart.module.css'
 import ItemsCart from "./ItemsCart";
@@ -7,15 +7,22 @@ import useCart from "../Hooks/useCart";
 import StripeCheckout from 'react-stripe-checkout';
 import axios from 'axios'; 
 import PaymentModal from "./PaymentModal";
+import useFirebase from "../Hooks/useFirebase";
 
 const Cart = () => {
 
     const { itemsCart, setItemsCart, totalCart, totalItems, orderSummary, setOrderSummary, setShowModalOrder} = useCart();
-
+    const { user, userToken, setHeaderReq } = useFirebase();
     const [visible, setVisible] = useState(false);
     const [orderFetch, setOrderFetch] = useState(false);
     const [wasSuccessful, setWasSuccessful] = useState(false);
+    const [firebaseUid, setFirebaseUid] = useState('');
 
+    useEffect(() => {
+        if(user && user?.uid) setFirebaseUid(user.uid);
+    },[user]);
+
+    console.log(firebaseUid)
     const showDrawer = () => {
         setVisible(true);
     };
@@ -30,9 +37,12 @@ const Cart = () => {
             setOrderFetch(true);
             setShowModalOrder(true);
             const respond = await axios.post(`${process.env.API_MIT_RESTAURANT_URL}/orders/payment`, {
-                token,
-                itemsCart
-            });
+                    token,
+                    itemsCart,
+                    firebaseUid
+                },
+                setHeaderReq(userToken)
+            );
 
             if(respond.status === 200) {
                 setWasSuccessful(true);
