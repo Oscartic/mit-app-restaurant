@@ -29,7 +29,7 @@ const PaymentModal = ({orderFetch, wasSuccessful, setVisible}) => {
                 <Divider orientation="left">Detail Order</Divider>
                 <List
                     size="small"
-                    header={<div><strong>OrderId</strong>: {orderSummary.orderId}</div>}
+                    header={<div><strong>OrderId </strong>: <code style={{color: 'red', display: 'block'}}>{orderSummary.orderId}</code></div>}
                     footer={<div style={{textAlign: 'center'}}>Total paid: <strong>{orderSummary.amount.$numberDecimal / 100}</strong> {orderSummary.currency}</div>}
                     bordered
                     dataSource={orderItems}

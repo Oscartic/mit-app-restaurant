@@ -14,7 +14,7 @@ const CartProvider = (props) => {
         if(localData.length > 0) {
             setItemsCart(localData);
         };
-    },[]);
+    },[setItemsCart]);
 
     const totalCart = () => {
         let acc = 0;
@@ -42,6 +42,7 @@ const CartProvider = (props) => {
                 return item;
             });
             setItemsCart(addQuantityItemCart);
+            localStorage.setItem('cart', JSON.stringify(itemsCart));
         } else {
             const newItem =  {
                 dishId: dish.dishId, 
@@ -53,12 +54,15 @@ const CartProvider = (props) => {
                 restaurantId,
                 restaurantName
             };
-            const newCart = [...itemsCart, newItem]
-            setItemsCart(newCart);
+    
+            console.log('addAmountFromRestaurant CartContext', newItem)
+            setItemsCart([...itemsCart, newItem]);
+            const local = JSON.parse(localStorage.cart);
+            const newLocal = [...local, newItem]
+            localStorage.setItem('cart', JSON.stringify(newLocal));         
         }
-        localStorage.setItem('cart', JSON.stringify(itemsCart));
-
-    }
+        return itemsCart;
+    };
 
     const showItemCart = (dishId) => {
         const itemCart = itemsCart.find(e => e.dishId === dishId);

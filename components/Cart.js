@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Drawer, Empty, Button, Result } from "antd";
+import { Drawer, Empty, Button } from "antd";
 import { ShoppingCartOutlined, CreditCardOutlined } from '@ant-design/icons';
 import styles from '../styles/Cart.module.css'
 import ItemsCart from "./ItemsCart";
@@ -7,14 +7,20 @@ import useCart from "../Hooks/useCart";
 import StripeCheckout from 'react-stripe-checkout';
 import axios from 'axios'; 
 import PaymentModal from "./PaymentModal";
+import useFirebase from "../Hooks/useFirebase";
 
 const Cart = () => {
 
     const { itemsCart, setItemsCart, totalCart, totalItems, orderSummary, setOrderSummary, setShowModalOrder} = useCart();
-
+    const { user, userToken, setHeaderReq, inSession} = useFirebase();
     const [visible, setVisible] = useState(false);
     const [orderFetch, setOrderFetch] = useState(false);
     const [wasSuccessful, setWasSuccessful] = useState(false);
+    const [firebaseUid, setFirebaseUid] = useState('');
+
+    useEffect(() => {
+        if(user && user?.uid) setFirebaseUid(user.uid);
+    },[user]);
 
     const showDrawer = () => {
         setVisible(true);
@@ -30,9 +36,12 @@ const Cart = () => {
             setOrderFetch(true);
             setShowModalOrder(true);
             const respond = await axios.post(`${process.env.API_MIT_RESTAURANT_URL}/orders/payment`, {
-                token,
-                itemsCart
-            });
+                    token,
+                    itemsCart,
+                    firebaseUid
+                },
+                setHeaderReq(userToken)
+            );
 
             if(respond.status === 200) {
                 setWasSuccessful(true);
@@ -95,7 +104,7 @@ const Cart = () => {
                     itemsCart.length <= 0 &&
                     <Empty description="You still do not have selected dishes"/>
                 }
-                { itemsCart.length > 0 &&
+                { itemsCart.length > 0 && inSession ?
                     <>
                         <StripeCheckout
                             name="MitRestaurants"
@@ -116,6 +125,10 @@ const Cart = () => {
                             setVisible={setVisible}
                         />    
                     </>
+                    :
+                        <Button type="primary" block disabled loading={true} >
+                             Please, login for pay your order!
+                        </Button>
                 }
             </Drawer>
         </div>
