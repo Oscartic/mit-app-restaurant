@@ -69,8 +69,6 @@ const FirebaseProvider = (props) => {
         
     };
 
-
-
     const logIn = async (email, password) => {
         try {
             setIsFetch(true);
@@ -78,14 +76,13 @@ const FirebaseProvider = (props) => {
             const { user } = await signInWithEmailAndPassword(auth, email, password);
             const idToken = await user.getIdToken();
             setTokenBrowser(idToken, setUserToken);
-            setInSession(true);     
+            setInSession(true);
             const { data } = await axios.get(
                 `${process.env.API_MIT_RESTAURANT_URL}/users/${user.uid}`,
                 setHeaderReq(userToken)
             );
             setIsFetch(false);
             return data;
-            return user;
         } catch (error) {
             console.log("[FirebaseProvider.logIn] >>> ", error.message);
             setErrorLogin(error.message);
@@ -119,7 +116,6 @@ const FirebaseProvider = (props) => {
         });
     },[user, userToken, isFetch, errorLogin, errorSignUp, inSession]); 
     return <FirebaseContext.Provider value={value} {...props} />
-
-}
+};
 
 export default FirebaseProvider;
