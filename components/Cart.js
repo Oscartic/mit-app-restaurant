@@ -12,7 +12,7 @@ import useFirebase from "../Hooks/useFirebase";
 const Cart = () => {
 
     const { itemsCart, setItemsCart, totalCart, totalItems, orderSummary, setOrderSummary, setShowModalOrder} = useCart();
-    const { user, userToken, setHeaderReq } = useFirebase();
+    const { user, userToken, setHeaderReq, inSession} = useFirebase();
     const [visible, setVisible] = useState(false);
     const [orderFetch, setOrderFetch] = useState(false);
     const [wasSuccessful, setWasSuccessful] = useState(false);
@@ -104,7 +104,7 @@ const Cart = () => {
                     itemsCart.length <= 0 &&
                     <Empty description="You still do not have selected dishes"/>
                 }
-                { itemsCart.length > 0 &&
+                { itemsCart.length > 0 && inSession ?
                     <>
                         <StripeCheckout
                             name="MitRestaurants"
@@ -125,6 +125,10 @@ const Cart = () => {
                             setVisible={setVisible}
                         />    
                     </>
+                    :
+                        <Button type="primary" block disabled loading={true} >
+                             Please, login for pay your order!
+                        </Button>
                 }
             </Drawer>
         </div>
