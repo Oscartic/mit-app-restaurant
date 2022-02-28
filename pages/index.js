@@ -7,7 +7,8 @@ const Home = () => {
       <Head>
         <title>MITRestaurants</title>
       </Head>
-        <h1>Hello from Restaurants</h1>
+        <h1>Restaurant App Presentation Capstone</h1>
+        <p>This is a final project for optar the MERN certification programer </p>
     </>
   )
 }
