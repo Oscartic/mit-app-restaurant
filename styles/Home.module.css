@@ -1,7 +1,27 @@
 .container {
   padding: 0 2rem;
 }
+.main_section_index {
+  align-items: center;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  min-height: 400px;
+  padding: 0 1rem; 
+}
 
+.main_section_index img {
+  max-width: 80%;
+}
+
+.main_section_index h1 {
+  font-size: 2.5rem;
+  font-weight: 300;
+}
+.main_section_index p {
+  font-weight: 200;
+  font-size: 1.3em;
+}
 .main {
   min-height: 100vh;
   padding: 4rem 0;
