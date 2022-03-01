@@ -19,7 +19,7 @@ const CardRestaurant = ({dish, restaurantName, restaurantId}) => {
                 cover={
                     <img
                         alt="example"
-                        src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                        src={dish.imageUrl}
                     />
                 }
                 >
