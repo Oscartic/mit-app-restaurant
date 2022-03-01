@@ -92,10 +92,10 @@ const FirebaseProvider = (props) => {
 
     const logout = async () =>  {
         try {
-            await signOut(auth);
             setUserToken('');
             setInSession(false);
             localStorage.removeItem('userToken');
+            await signOut(auth);
         } catch (error) {
             console.log("[FirebaseProvider.logout] >>> ", error.message);
         }
