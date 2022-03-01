@@ -12,56 +12,65 @@ const TopMenu = () => {
 
   const { user, logout } = useFirebase();
   
+  const router = useRouter();
+  
   const isActive = (path) => {
-    const router = useRouter();
     return router.pathname == path ? styles.active : "";
+  }
+
+  const showMenu = () => {
+    return router.pathname == "/" ? styles.menu_hidden : "";
   }
 
   return (
     <>
       <div id={styles.header}>
-        <Image src={LogoApp} />
+        <Link as={`/`} href="/">
+          <a><Image src={LogoApp} alt="Logo MIT Restaurants" href="/"/></a>
+        </Link>
       </div>
-      <Row style={{ margin: '2rem 0'}}>
-        <Col span={15} offset={2} className={styles.main_menu}>
-          <Link as={`/restaurants/`} href="/restaurants/">
-            <a className={isActive('/restaurants')} >
-              <CrownOutlined />
-              Restaurants
-            </a>
-          </Link>
-          <Link as={`/account/`} href="/account/">
-            <a className={isActive('/account')}>
-              <SettingOutlined />
-              Account
-            </a>
-          </Link>
-        </Col>
-        <Col span={3}>
-          <div className={styles.user_info}>
-            <span className={styles.show_user}>
-              {user?.email ? 
-                <>
-                    Hello, {user.email}
-                    <Link as={'/'} href="/">
-                      <a onClick={logout}> <LogoutOutlined /> Logout</a>
+      <div className={showMenu()}>
+        <Row style={{ margin: '2rem auto' }}>
+          <Col span={15} offset={2} className={styles.main_menu}>
+            <Link as={`/restaurants/`} href="/restaurants/">
+              <a className={isActive('/restaurants')} >
+                <CrownOutlined />
+                Restaurants
+              </a>
+            </Link>
+            <Link as={`/account/`} href="/account/">
+              <a className={isActive('/account')}>
+                <SettingOutlined />
+                Account
+              </a>
+            </Link>
+          </Col>
+          <Col span={3}>
+            <div className={styles.user_info}>
+              <span className={styles.show_user}>
+                {user?.email ? 
+                  <>
+                      Hello, {user.email}
+                      <Link as={'/'} href="/">
+                        <a onClick={logout}> <LogoutOutlined /> Logout</a>
+                      </Link>
+                  </>
+                : 
+                  <>
+                    Account
+                    <Link as={'/login/'} href="/login/">
+                      <a><LoginOutlined /> Login</a>
                     </Link>
-                </>
-              : 
-                <>
-                  Account
-                  <Link as={'/login/'} href="/login/">
-                    <a><LoginOutlined /> Login</a>
-                  </Link>
-                </>  
-              }
-            </span>
-          </div>
-        </Col>
-        <Col span={2} >
-          <Cart quantity={0} total={0} />
-        </Col>
-      </Row>
+                  </>  
+                }
+              </span>
+            </div>
+          </Col>
+          <Col span={2} >
+            <Cart quantity={0} total={0} />
+          </Col>
+        </Row>
+      </div>
     </>
   )
 };
