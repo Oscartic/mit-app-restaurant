@@ -76,7 +76,7 @@ const FirebaseProvider = (props) => {
             setErrorLogin('');
             const { user } = await signInWithEmailAndPassword(auth, email, password);
             const idToken = await user.getIdToken();
-            setTokenBrowser(idToken, setUserToken);
+            setTokenBrowser(idToken);
             setInSession(true);
             const { data } = await axios.get(
                 `${process.env.API_MIT_RESTAURANT_URL}/users/${user.uid}`,
