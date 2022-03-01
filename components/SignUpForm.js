@@ -11,15 +11,13 @@ const SignUpForm = () => {
     const onFinish = async (values) => {
         const { nickname, email , password } = values;
         try {
-            const respond = await register({nickname, email, password});  
-            if(respond && respond.status === 200) router.push('/restaurants/');
+            const respond = await register({nickname, email, password});
+            if(respond && respond.status === 201) router.push('/restaurants/');
             return respond;        
         } catch (error) {
             console.log("[SignUpForm.onFinish] >>> ", error.message);
         }
-        console.log('Success:', values);
     };
-    
 
     return (
         <div style={{margin: 'auto', maxWidth: '450px'}}>
