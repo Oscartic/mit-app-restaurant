@@ -30,7 +30,8 @@ const FirebaseProvider = (props) => {
     const setTokenBrowser = (firebaseToken) => { 
         const token = `Bearer ${firebaseToken}`;  
         setUserToken(token);
-        return localStorage.setItem('userToken', JSON.stringify(token));
+        localStorage.setItem('userToken', JSON.stringify(token));
+        return token;
     };
     const setHeaderReq = (token) => {
         return {
@@ -51,11 +52,11 @@ const FirebaseProvider = (props) => {
             const { user } = await createUserWithEmailAndPassword(auth, email, password);
             await updateProfile(auth.currentUser, {displayName: nickname});
             const idToken = await user.getIdToken();
-            setTokenBrowser(idToken, setUserToken);  
+            const newToken = setTokenBrowser(idToken);  
             const respond = await axios.post(
                 `${process.env.API_MIT_RESTAURANT_URL}/users/${user.uid}`,
                 {message: 'I send you the firebase ID, do your thing!'},
-                setHeaderReq(userToken)
+                setHeaderReq(newToken)
             );
             setInSession(true);
             setIsFetch(false);
