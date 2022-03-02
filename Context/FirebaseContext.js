@@ -16,12 +16,13 @@ const FirebaseProvider = (props) => {
     
     
     useEffect(() => {
-        const localUserToken = JSON.parse(localStorage.getItem('userToken'));
-        if(localUserToken && localUserToken.length >= 1) {
-            setUserToken(localUserToken);
-            setInSession(true);
+        if(localStorage.getItem('userToken')) {
+            localStorage.removeItem('userToken');
         };
-    },[inSession,userToken]);
+        if(user && user.accessToken) {
+            setTokenBrowser(user.accessToken);
+        }
+    },[user, inSession, userToken]);
     
     onAuthStateChanged(auth, (currentUser) =>{
         setUser(currentUser);
@@ -30,18 +31,19 @@ const FirebaseProvider = (props) => {
     const setTokenBrowser = (firebaseToken) => { 
         const token = `Bearer ${firebaseToken}`;  
         setUserToken(token);
+        setInSession(true);
         localStorage.setItem('userToken', JSON.stringify(token));
         return token;
     };
     const setHeaderReq = (token) => {
         return {
             headers: {
-                Authorization: `${token}`,
+                Authorization:`${token}`,
                 Accept: 'application/json',
                 "Content-Type": "application/json",
+                credentials: "include",
+                mode: "cors",
             },
-            credentials: "include",
-            mode: "cors",
         }
     };
 
@@ -58,7 +60,6 @@ const FirebaseProvider = (props) => {
                 {message: 'I send you the firebase ID, do your thing!'},
                 setHeaderReq(newToken)
             );
-            setInSession(true);
             setIsFetch(false);
             console.log('[FirebaseProvider.register] The user has been created! 👌');
             return respond;
@@ -76,14 +77,13 @@ const FirebaseProvider = (props) => {
             setErrorLogin('');
             const { user } = await signInWithEmailAndPassword(auth, email, password);
             const idToken = await user.getIdToken();
-            setTokenBrowser(idToken);
-            setInSession(true);
-            const { data } = await axios.get(
-                `${process.env.API_MIT_RESTAURANT_URL}/users/${user.uid}`,
-                setHeaderReq(userToken)
+            const newToken = setTokenBrowser(idToken);  
+            const respond = await axios.get(
+                `${process.env.API_MIT_RESTAURANT_URL}/users/${user.uid}`,            
+                setHeaderReq(newToken)
             );
             setIsFetch(false);
-            return data;
+            return respond;
         } catch (error) {
             console.log("[FirebaseProvider.logIn] >>> ", error.message);
             setErrorLogin(error.message);
@@ -93,10 +93,10 @@ const FirebaseProvider = (props) => {
 
     const logout = async () =>  {
         try {
+            await signOut(auth);
+            localStorage.removeItem('userToken');
             setUserToken('');
             setInSession(false);
-            localStorage.removeItem('userToken');
-            await signOut(auth);
         } catch (error) {
             console.log("[FirebaseProvider.logout] >>> ", error.message);
         }
