@@ -14,7 +14,7 @@ const CardRestaurant = ({dish, restaurantName, restaurantId}) => {
     }
 
     return (
-        <Col className="gutter-row" span={6}>
+        <Col className="gutter-row" xs={24} lg={6}>
             <Card title={dish.name}
                 cover={
                     <img

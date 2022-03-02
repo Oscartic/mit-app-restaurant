@@ -17,7 +17,7 @@ const SkeletonCard = () => {
 
     return (
         <>
-            <Col className="gutter-row" span={6}>
+            <Col className="gutter-row" xs={24} lg={6}>
                 <Card
                     
                     cover={
@@ -32,7 +32,7 @@ const SkeletonCard = () => {
                     </Skeleton>
                 </Card>
             </Col>
-            <Col className="gutter-row" span={6}>
+            <Col className="gutter-row" xs={24} lg={6}>
                 <Card
                     cover={
                         <Image className={styles.skeleton_image}/>
@@ -47,7 +47,7 @@ const SkeletonCard = () => {
                     </Skeleton>
                 </Card>
             </Col>
-            <Col className="gutter-row" span={6}>
+            <Col className="gutter-row" xs={24} lg={6}>
                 <Card
                     cover={
                         <Image className={styles.skeleton_image}/>
@@ -62,7 +62,7 @@ const SkeletonCard = () => {
                     </Skeleton>
                 </Card>
             </Col>
-            <Col className="gutter-row" span={6}>
+            <Col className="gutter-row" xs={24} lg={6}>
                 <Card
                     cover={
                         <Image className={styles.skeleton_image}/>

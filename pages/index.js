@@ -12,7 +12,7 @@ const Home = () => {
         <title>MITRestaurants</title>
       </Head>
         <Row style={{ margin: '2rem auto', maxWidth: '1200px'}}>
-        <Col span={12}>
+        <Col xs={24} lg={12}>
             <div className={style.main_section_index}>
               <div>
                 <h1>Restaurant App Presentation Capstone</h1>
@@ -26,7 +26,7 @@ const Home = () => {
               </div>
             </div>
           </Col>
-          <Col span={12}>
+          <Col xs={24} lg={12}>
             <div className={style.main_section_index}>
               <img  style={{ maxWidth: '300px'}} src="https://ik.imagekit.io/orb/MITRestaurants/logo-solo_ZqsIomNg-.png?ik-sdk-version=javascript-1.4.3&updatedAt=1646091940996" alt="" />
             </div>

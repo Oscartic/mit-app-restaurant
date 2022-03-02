@@ -31,7 +31,7 @@ const TopMenu = () => {
       </div>
       <div className={showMenu()}>
         <Row style={{ margin: '2rem auto' }}>
-          <Col span={15} offset={2} className={styles.main_menu}>
+          <Col span={15} xs={22} md={15} offset={2} className={styles.main_menu}>
             <Link as={`/restaurants/`} href="/restaurants/">
               <a className={isActive('/restaurants')} >
                 <CrownOutlined />
@@ -45,7 +45,7 @@ const TopMenu = () => {
               </a>
             </Link>
           </Col>
-          <Col span={3}>
+          <Col span={3} xs={12} md={3}>
             <div className={styles.user_info}>
               <span className={styles.show_user}>
                 {user?.email ? 
@@ -66,7 +66,7 @@ const TopMenu = () => {
               </span>
             </div>
           </Col>
-          <Col span={2} >
+          <Col span={2} xs={10} md={2}>
             <Cart quantity={0} total={0} />
           </Col>
         </Row>
