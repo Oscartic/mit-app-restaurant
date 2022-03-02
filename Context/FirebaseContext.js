@@ -36,12 +36,12 @@ const FirebaseProvider = (props) => {
     const setHeaderReq = (token) => {
         return {
             headers: {
-                Authorization: `${token}`,
+                Authorization:`${token}`,
                 Accept: 'application/json',
                 "Content-Type": "application/json",
+                credentials: "include",
+                mode: "cors",
             },
-            credentials: "include",
-            mode: "cors",
         }
     };
 
@@ -76,14 +76,14 @@ const FirebaseProvider = (props) => {
             setErrorLogin('');
             const { user } = await signInWithEmailAndPassword(auth, email, password);
             const idToken = await user.getIdToken();
-            setTokenBrowser(idToken);
+            const newToken = setTokenBrowser(idToken);  
             setInSession(true);
-            const { data } = await axios.get(
-                `${process.env.API_MIT_RESTAURANT_URL}/users/${user.uid}`,
-                setHeaderReq(userToken)
+            const respond = await axios.get(
+                `${process.env.API_MIT_RESTAURANT_URL}/users/${user.uid}`,            
+                setHeaderReq(newToken)
             );
             setIsFetch(false);
-            return data;
+            return respond;
         } catch (error) {
             console.log("[FirebaseProvider.logIn] >>> ", error.message);
             setErrorLogin(error.message);
